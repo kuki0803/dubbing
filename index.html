@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>他好像不開心・配音課</title>
+<style>
+* { box-sizing: border-box; }
+:root { --green: #1F4D3A; --mid: #1F7A55; --cream: #FBF7EF; --ink: #1E2A2A; --gold: #E8B04B; --red: #C8384A; --pale: #E3EFE6; --soft: #CFE3D6; --text: #3D4A47; --line: #D8D0BF; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: #10261d; }
+body { font-family: 'Microsoft JhengHei', 'PingFang TC', 'Noto Sans TC', sans-serif; -webkit-font-smoothing: antialiased; user-select: none; }
+.deck { position: absolute; left: 50%; top: 50%; width: 1920px; height: 1080px; transform-origin: center center; overflow: hidden; border-radius: 6px; box-shadow: 0 20px 60px rgba(0,0,0,.4); }
+.slide { position: absolute; inset: 0; opacity: 0; pointer-events: none; transition: opacity .35s ease; padding: 96px 128px; display: flex; flex-direction: column; gap: 44px; background: var(--cream); color: var(--ink); }
+.slide.on { opacity: 1; pointer-events: auto; }
+.slide.dark { background: var(--green); color: var(--cream); }
+.slide h1, .slide h2, .slide h3, .slide p, .slide ul, .slide ol { margin: 0; }
+.slide aside { display: none; }
+.kick { font-size: 32px; font-weight: 700; color: var(--mid); letter-spacing: 3px; }
+.dark .kick { color: var(--gold); }
+h2 { font-size: 72px; font-weight: 900; line-height: 1.15; }
+.row { display: flex; gap: 36px; }
+.card { flex: 1; display: flex; flex-direction: column; gap: 18px; padding: 44px; background: #fff; color: var(--ink); border: 3px solid var(--green); border-radius: 28px; }
+.card h3 { font-size: 46px; font-weight: 900; }
+.card p { font-size: 40px; line-height: 1.45; color: var(--text); }
+.card .tag { font-family: 'Noto Sans TC', sans-serif; font-size: 72px; font-weight: 700; line-height: 1; }
+.card.good { border-color: var(--mid); background: var(--pale); }
+.card.bad { border-color: var(--red); background: #FBE9EB; }
+.red { color: var(--red); }
+.big-rule { font-size: 44px; font-weight: 700; }
+
+/* 對照學習單的格號 */
+.slide .ws { position: absolute; right: 128px; top: 50px; padding: 10px 30px; border-radius: 999px; background: var(--gold); color: var(--ink); font-size: 34px; font-weight: 900; letter-spacing: 2px; box-shadow: 0 4px 12px rgba(0,0,0,.15); }
+
+/* 分角色 */
+.roles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.role { background: #fff; color: var(--ink); border-radius: 24px; padding: 28px 20px; text-align: center; display: flex; flex-direction: column; gap: 10px; }
+.role .s { font-family: sans-serif; font-size: 84px; font-weight: 700; line-height: 1.05; }
+.role b { font-size: 44px; }
+.role span { font-size: 34px; color: var(--text); }
+
+/* 錄音室 */
+.studio { padding: 36px 44px; flex-direction: row; gap: 36px; background: var(--green); color: var(--cream); }
+.studio .left { width: 1160px; display: flex; flex-direction: column; gap: 18px; }
+.studio canvas { width: 1160px; height: 652px; border-radius: 22px; background: #fff; display: block; }
+.status { font-size: 36px; font-weight: 700; color: var(--gold); min-height: 52px; line-height: 52px; }
+.ctrl { display: flex; gap: 18px; align-items: center; }
+button.b { border: 0; border-radius: 22px; font: inherit; font-size: 40px; font-weight: 900; padding: 22px 40px; cursor: pointer; background: var(--cream); color: var(--ink); transition: transform .1s ease; }
+button.b:active { transform: scale(.97); }
+button.b:disabled { opacity: .35; cursor: default; }
+button.b.rec { background: var(--red); color: #fff; min-width: 340px; }
+button.b.go { background: var(--gold); color: var(--ink); }
+.meter { height: 22px; border-radius: 11px; background: rgba(255,255,255,.18); overflow: hidden; }
+.meter i { display: block; height: 100%; width: 0; background: #7FE0A6; border-radius: 11px; }
+.right { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.right .ttl { font-size: 36px; font-weight: 900; color: var(--gold); display: flex; justify-content: space-between; align-items: baseline; }
+.list { display: flex; flex-direction: column; gap: 7px; flex: 1; }
+.li { display: grid; grid-template-columns: 44px 104px 1fr 40px; gap: 8px; align-items: center; width: 100%; text-align: left; border: 0; border-radius: 14px; padding: 10px 14px; background: rgba(255,255,255,.1); color: var(--cream); font: inherit; font-size: 26px; cursor: pointer; }
+.li.on { background: var(--cream); color: var(--ink); font-weight: 700; }
+.li .tx { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.li .ok { color: #7FE0A6; font-weight: 900; font-size: 30px; }
+.li.on .ok { color: var(--mid); }
+.tools { display: flex; gap: 10px; align-items: center; font-size: 22px; }
+.tools select { flex: 1; min-width: 0; font: inherit; padding: 8px; border-radius: 10px; }
+.tools button { border: 0; border-radius: 10px; background: rgba(255,255,255,.16); color: var(--cream); font: inherit; padding: 9px 14px; cursor: pointer; white-space: nowrap; }
+.count3 { position: absolute; left: 44px; top: 36px; width: 1160px; height: 652px; border-radius: 22px; background: rgba(16,38,29,.72); display: none; align-items: center; justify-content: center; font-family: sans-serif; font-size: 300px; font-weight: 700; color: var(--gold); }
+.count3.on { display: flex; }
+
+/* 首映 */
+.film { padding: 0; background: #000; }
+.film canvas { position: absolute; inset: 0; width: 1920px; height: 1080px; display: block; }
+.film .panel { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 34px; background: var(--green); color: var(--cream); text-align: center; }
+.film .panel.off { display: none; }
+.film h2 { font-size: 110px; }
+.film .msg { font-size: 40px; color: var(--soft); }
+.film .ctrl button.b { font-size: 46px; padding: 28px 56px; }
+.film .clear { border: 0; background: transparent; color: var(--soft); font: inherit; font-size: 26px; cursor: pointer; text-decoration: underline; }
+
+/* 底部控制列 */
+.bar { position: fixed; left: 50%; bottom: 14px; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-radius: 999px; background: rgba(16, 38, 29, .78); backdrop-filter: blur(10px); color: #FBF7EF; font-size: 15px; z-index: 10; opacity: .35; transition: opacity .25s; }
+.bar:hover, .bar:focus-within { opacity: 1; }
+.bar.hide { display: none; }
+.bar button { border: 0; background: transparent; color: inherit; font: inherit; font-weight: 700; padding: 6px 12px; border-radius: 999px; cursor: pointer; }
+.bar button:hover { background: rgba(255,255,255,.15); }
+.bar .count { min-width: 64px; text-align: center; font-family: sans-serif; font-weight: 600; }
+.progress { position: fixed; left: 0; top: 0; height: 4px; background: var(--gold); transition: width .35s ease; z-index: 10; }
+.notes { position: fixed; left: 50%; bottom: 64px; transform: translateX(-50%); width: min(900px, calc(100vw - 32px)); max-height: 30vh; overflow: auto; padding: 14px 18px; border-radius: 14px; background: rgba(251, 247, 239, .96); color: #1E2A2A; font-size: 17px; line-height: 1.6; box-shadow: 0 10px 30px rgba(0,0,0,.3); display: none; z-index: 10; }
+.notes.on { display: block; }
+.notes b { color: #1F7A55; }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck" id="deck">
+
+<section class="slide dark" style="justify-content:center;gap:40px">
+<p class="kick">配音課</p>
+<h1 style="font-size:150px;font-weight:900;line-height:1.1">他好像不開心</h1>
+<p style="font-size:48px;color:var(--soft);width:1300px">一起替短片配音，看看大家的聲音變成影片：<br>看到同學不開心，我們可以怎麼幫他？</p>
+<aside>開場 30 秒。今天的流程：四人一組分角色、配音（約 20 分鐘）、看自己組的影片、討論。短片裡的角色都是虛構的。</aside>
+</section>
+
+<section class="slide">
+<p class="ws">學習單 ①</p>
+<p class="kick">分角色｜約 3 分鐘</p>
+<h2>今天先當配音員</h2>
+<p style="font-size:44px;color:var(--text)">短片裡，小安從早上就一直趴在桌上。同學看到了，會怎麼做？</p>
+<div class="roles" style="background:var(--green);padding:28px;border-radius:30px">
+<div class="role"><p class="s">🎬</p><b>導演</b><span>第 1、7 句</span></div>
+<div class="role"><p class="s">🎒</p><b>小米</b><span>第 2、4、8、11 句</span></div>
+<div class="role"><p class="s">🧢</p><b>阿凱</b><span>第 3、6、10、13 句</span></div>
+<div class="role"><p class="s">📚</p><b>小安</b><span>第 5、9、12 句</span></div>
+</div>
+<p class="big-rule">四人一組，自己選角色。想換角色？好好問：<span class="red">「我想跟你換，可以嗎？」</span></p>
+<aside>每組四人，各選一個角色，用自願或抽籤都可以，不要指定誰演小安。不想錄音的學生可以先當導演，或由老師陪著錄。角色名字都是虛構的，如果班上有同名同學，先改名字。先約定：聽到別人的聲音只給讚，不笑。</aside>
+</section>
+
+<section class="slide studio" data-interactive id="studio">
+<div class="left">
+<canvas id="studioCanvas" width="1280" height="720"></canvas>
+<div class="status" id="status">按紅色按鈕開始；第一次請允許使用麥克風。</div>
+<div class="meter"><i id="meter"></i></div>
+<div class="ctrl">
+<button class="b rec" id="recBtn">● 開始錄音</button>
+<button class="b" id="listenBtn" disabled>▶ 聽一次</button>
+<button class="b go" id="nextLine">下一句 ➜</button>
+</div>
+</div>
+<div class="right">
+<div class="ttl"><span>🎙️ 配音室</span><span id="doneCount">0 / 13</span></div>
+<div class="list" id="list"></div>
+<div class="tools"><select id="micSel" aria-label="選擇麥克風"><option value="">預設麥克風</option></select></div>
+</div>
+<div class="count3" id="count3">3</div>
+<aside>約 20 分鐘。每組在同一台電腦上，四人輪流錄自己的角色：導演 2 句、小米 4 句、阿凱 4 句、小安 3 句，共 13 句，每句約 1 分鐘。錄完會自動播放一次，不滿意就再按紅色按鈕重錄；搞笑聲音也可以。沒輪到的人先在旁邊小聲練習，不要出聲干擾錄音。錄音存在這台電腦的瀏覽器裡，不會上傳，重新整理也不會消失。時間不夠時，沒錄的句子首映時只會顯示字幕。</aside>
+</section>
+
+<section class="slide film" data-interactive id="film">
+<canvas id="filmCanvas" width="1280" height="720"></canvas>
+<div class="panel" id="filmPanel">
+<h2>🎬 首映會</h2>
+<p class="msg" id="filmMsg">準備好了嗎？一起看！</p>
+<div class="ctrl">
+<button class="b go" id="playFilm">▶ 開始首映</button>
+<button class="b" id="dlFilm" disabled>⬇ 下載影片</button>
+</div>
+<button class="clear" id="clearAll">下課清除所有錄音</button>
+</div>
+<aside>約 4 分鐘。各組在自己的電腦看自己的影片，也可以請幾組投影給全班看。播放同時會合成影片，播完才能下載；播放中按 Esc 可中止。播放時請讓這個分頁留在前景。先稱讚每個人的聲音，再討論。影片不會自動上傳；如之後要公開分享，請另外取得學生與家長同意。下課前按「清除所有錄音」。</aside>
+</section>
+
+<section class="slide">
+<p class="ws">學習單 ②</p>
+<p class="kick">看完影片｜約 3 分鐘</p>
+<h2>同一件事，三種反應，小安的感覺一樣嗎？</h2>
+<div class="row" style="align-items:stretch">
+<div class="card bad"><p class="tag red">A</p><h3>一直追問</h3><p>「快說啊！你怎麼了？」</p></div>
+<div class="card bad"><p class="tag red">B</p><h3>假裝沒看到</h3><p>「不關我們的事啦！」</p></div>
+<div class="card good"><p class="tag" style="color:var(--mid)">C</p><h3>關心＋陪伴</h3><p>「你還好嗎？想說再說，我陪你。」</p></div>
+</div>
+<p class="big-rule">如果你是小安，我選 ＿，因為：<span class="red">不會有壓力／不會更孤單／被尊重又有人陪</span></p>
+<aside>剛看完影片，直接問。請每人比 A、B 或 C，用「我選＿，因為＿」回答，理由可以直接選畫面上的。引導重點：A 讓小安有壓力，B 讓小安更孤單，C 先關心、尊重他不想說，還陪著他。</aside>
+</section>
+
+<section class="slide dark" style="justify-content:center">
+<p class="ws">學習單 ③</p>
+<p class="kick">幫助同學三步驟｜約 2 分鐘</p>
+<h2 style="font-size:96px">關心他，不是逼他</h2>
+<div class="row" style="align-items:stretch">
+<div class="card"><p class="tag red">1</p><h3>問一句</h3><p>「你還好嗎？」</p></div>
+<div class="card"><p class="tag red">2</p><h3>陪著他</h3><p>「不想說也沒關係」</p></div>
+<div class="card"><p class="tag red">3</p><h3>找大人</h3><p>「我們一起去找老師」</p></div>
+</div>
+<aside>全班一起唸一次三步驟，再請學生說說看，生活中什麼時候用得到。重點是第 3 步：如果同學一直很難過，或說到被欺負、想傷害自己，不要自己扛，要找老師或其他大人幫忙，這不是打小報告。</aside>
+</section>
+
+<section class="slide dark" style="justify-content:center">
+<p class="ws">學習單 ④</p>
+<p class="kick">今天帶走的話｜約 2 分鐘</p>
+<h2 style="font-size:84px">看到同學不開心，你想說哪一句？</h2>
+<div class="row" style="align-items:stretch">
+<div class="card"><p class="tag red">1</p><p style="font-size:44px;font-weight:900;color:var(--ink)">「你還好嗎？<br>我有點擔心你。」</p></div>
+<div class="card"><p class="tag red">2</p><p style="font-size:44px;font-weight:900;color:var(--ink)">「不想說沒關係，<br>我陪你坐一下。」</p></div>
+<div class="card"><p class="tag red">3</p><p style="font-size:44px;font-weight:900;color:var(--ink)">「要不要我陪你<br>去找老師？」</p></div>
+</div>
+<p class="big-rule" style="color:var(--gold)">比 1、2、3，告訴組員！</p>
+<aside>每人比一個數字即可。提醒：如果有同學在討論中提到自己正遇到困難、被欺負或想傷害自己，請依學校輔導流程，課後私下關心並轉介輔導老師。下課前回首映頁按「下課清除所有錄音」。</aside>
+</section>
+
+</div>
+<div class="notes" id="notes"></div>
+<div class="bar" id="bar">
+<button id="prev" title="上一頁">◀</button>
+<span class="count" id="count"></span>
+<button id="next" title="下一頁">▶</button>
+<button id="noteBtn" title="講稿 (N)">講稿</button>
+<button id="fsBtn" title="全螢幕 (F)">全螢幕</button>
+</div>
+
+<script>
+(() => {
+/* ===== 劇本：新課主要改這一段（STORY、ROLE、LINES、ORDER），再依劇情調整下面的 BEATS =====
+   STORY.id 每一課都要換，錄音依它分開保存，沿用舊的會聽到舊課的聲音。 */
+const STORY = {
+  id: 'care-for-xiaoan-v1',
+  title: '他好像不開心',
+  credit: '全班配音作品',
+  endLine: '關心他，也尊重他',
+  endSub: '問一句　＋　陪著他　＋　找大人',
+  endCredit: '配音：全班一起完成 👏',
+  file: '他好像不開心_配音作品',
+};
+const ROLE = {
+  '導演': { color: '#1E2A2A', icon: '🎬' },
+  '小米': { color: '#8B4FB0', icon: '🎒' },
+  '阿凱': { color: '#2F6FB5', icon: '🧢' },
+  '小安': { color: '#D0702A', icon: '📚' },
+};
+const LINES = [
+  { id: 1,  role: '導演', text: '第一次拍攝，開麥拉！', beat: 'intro' },
+  { id: 2,  role: '小米', text: '小安從早上就一直趴著，好像不開心。', beat: 'notice' },
+  { id: 3,  role: '阿凱', text: '喂，你怎麼了啦？快說啊！', beat: 'push1' },
+  { id: 4,  role: '小米', text: '對啊對啊，你說出來我們才知道怎麼幫你！', beat: 'push2' },
+  { id: 5,  role: '小安', text: '不要一直問我啦……', beat: 'hurt' },
+  { id: 6,  role: '阿凱', text: '哎唷算了啦，不關我們的事，走啦！', beat: 'leave' },
+  { id: 7,  role: '導演', text: '卡！倒帶！這樣不對，重來！', beat: 'cut' },
+  { id: 8,  role: '小米', text: '小安，你還好嗎？我有點擔心你。', beat: 'care' },
+  { id: 9,  role: '小安', text: '我現在不太想說話。', beat: 'quiet' },
+  { id: 10, role: '阿凱', text: '沒關係，我們先陪你坐一下，好嗎？', beat: 'sit' },
+  { id: 11, role: '小米', text: '你想說的時候，我們都在。', beat: 'warm' },
+  { id: 12, role: '小安', text: '好……謝謝你們。', beat: 'thanks' },
+  { id: 13, role: '阿凱', text: '如果你一直很難過，我們陪你去找老師，好嗎？', beat: 'teacher' },
+];
+const byId = id => LINES.find(l => l.id === id);
+// 影片順序：第 7 句導演喊「倒帶」後接倒帶特效，再從第 8 句重新演
+const ORDER = [1, 2, 3, 4, 5, 6, 7, 'rewind', 8, 9, 10, 11, 12, 13];
+
+/* ===== 畫面 ===== */
+const FONT = "'Microsoft JhengHei','PingFang TC','Noto Sans TC',sans-serif";
+// kai / mi：阿凱、小米的位置（kaiFrom / miFrom 讓他們走進或走出畫面，walk 是走路速度）
+// kaiM / miM / anM：三個人的表情；down：小安趴著；lean：小安往後縮
+const BEATS = {
+  intro:   { kai: 330, mi: 560, anM: 'sad',  down: 1, kaiM: 'calm', miM: 'calm', clap: '開麥拉！' },
+  notice:  { kai: 330, mi: 560, anM: 'sad',  down: 1, kaiM: 'calm', miM: 'look' },
+  push1:   { kai: 660, kaiFrom: 330, mi: 560, anM: 'sad', down: 1, kaiM: 'look', miM: 'look' },
+  push2:   { kai: 660, mi: 760, miFrom: 560, anM: 'sad', down: 1, lean: 30, kaiM: 'look', miM: 'look' },
+  hurt:    { kai: 660, mi: 760, anM: 'sad', down: 1, lean: 40, kaiM: 'shock', miM: 'shock', gray: 1, shake: 1 },
+  leave:   { kai: -160, kaiFrom: 660, mi: -160, miFrom: 760, walk: 1.3, anM: 'sad', down: 1, kaiM: 'calm', miM: 'frown', gray: 1 },
+  cut:     { kai: -160, mi: -160, anM: 'sad', down: 1, kaiM: 'calm', miM: 'calm', gray: 1, clap: '卡！' },
+  care:    { kai: 330, kaiFrom: -160, mi: 700, miFrom: -160, walk: 2, anM: 'sad', down: 1, kaiM: 'calm', miM: 'sad' },
+  quiet:   { kai: 330, mi: 700, anM: 'sad', down: 0, kaiM: 'sad', miM: 'sad' },
+  sit:     { kai: 540, kaiFrom: 330, mi: 690, anM: 'sad', down: 0, kaiM: 'smile', miM: 'smile' },
+  warm:    { kai: 540, mi: 690, anM: 'calm', down: 0, kaiM: 'smile', miM: 'smile' },
+  thanks:  { kai: 540, mi: 690, anM: 'smile', down: 0, kaiM: 'happy', miM: 'happy' },
+  teacher: { kai: 540, mi: 690, anM: 'happy', down: 0, kaiM: 'happy', miM: 'happy', clap: '過關！', confetti: 1 },
+};
+
+function rr(c, x, y, w, h, r) { c.beginPath(); c.roundRect(x, y, w, h, r); }
+
+function background(c) {
+  const g = c.createLinearGradient(0, 0, 0, 470);
+  g.addColorStop(0, '#FFF1D6'); g.addColorStop(1, '#FFF9EC');
+  c.fillStyle = g; c.fillRect(0, 0, 1280, 720);
+  // 黑板
+  c.fillStyle = '#8B6B45'; rr(c, 96, 104, 660, 312, 10); c.fill();
+  c.fillStyle = '#2F5D4B'; rr(c, 114, 122, 624, 276, 6); c.fill();
+  c.fillStyle = '#B9A07A'; c.fillRect(114, 398, 624, 12);
+  c.strokeStyle = 'rgba(255,255,255,.35)'; c.lineWidth = 5; c.lineCap = 'round';
+  [[160, 190, 420], [160, 245, 520], [160, 300, 360]].forEach(([x, y, w]) => { c.beginPath(); c.moveTo(x, y); c.lineTo(x + w, y); c.stroke(); });
+  // 窗戶
+  c.fillStyle = '#FFFFFF'; rr(c, 852, 112, 324, 268, 10); c.fill();
+  c.fillStyle = '#BFE3F2'; c.fillRect(866, 126, 142, 114); c.fillRect(1020, 126, 142, 114); c.fillRect(866, 252, 142, 114); c.fillRect(1020, 252, 142, 114);
+  c.fillStyle = '#FFD27A'; c.beginPath(); c.arc(1110, 168, 26, 0, 7); c.fill();
+  // 地板
+  c.fillStyle = '#D9B98A'; c.fillRect(0, 460, 1280, 260);
+  c.fillStyle = '#C8A675'; c.fillRect(0, 460, 1280, 8);
+  c.strokeStyle = 'rgba(120,80,40,.18)'; c.lineWidth = 3;
+  for (let i = 1; i < 6; i++) { c.beginPath(); c.moveTo(0, 460 + i * 46); c.lineTo(1280, 460 + i * 46); c.stroke(); }
+}
+
+function desk(c, x) {
+  c.fillStyle = '#A8794A'; c.fillRect(x - 118, 572, 16, 84); c.fillRect(x + 102, 572, 16, 84);
+  c.fillStyle = '#D2A86E'; rr(c, x - 140, 546, 280, 28, 8); c.fill();
+}
+
+function person(c, x, opt) {
+  const { body, hair, style, mood, talking, level, t, down } = opt;
+  const lift = down ? 0 : (talking ? Math.abs(Math.sin(t * 7)) * 8 : Math.sin(t * 2 + x) * 2);
+  const y = 495 - lift + (down ? 46 : 0);
+  c.save(); c.translate(x, y);
+  if (down) c.rotate(.05);
+  // 影子
+  c.fillStyle = 'rgba(0,0,0,.14)'; c.beginPath(); c.ellipse(0, 112 + lift, 78, 15, 0, 0, 7); c.fill();
+  // 腿與身體
+  c.fillStyle = '#3C4656'; rr(c, -44, 60, 34, 54, 10); c.fill(); rr(c, 10, 60, 34, 54, 10); c.fill();
+  c.fillStyle = body; rr(c, -62, -42, 124, 118, 34); c.fill();
+  // 頭
+  c.fillStyle = '#FFD8B8'; c.beginPath(); c.arc(0, -96, 72, 0, 7); c.fill();
+  // 髮型
+  c.fillStyle = hair;
+  c.beginPath(); c.arc(0, -108, 74, Math.PI, 0); c.quadraticCurveTo(38, -136, 0, -128); c.quadraticCurveTo(-42, -132, -74, -108); c.fill();
+  if (style === 'tail') { c.beginPath(); c.ellipse(82, -90, 22, 54, .2, 0, 7); c.fill(); }
+  if (style === 'spike') { for (let i = -2; i <= 2; i++) { c.beginPath(); c.moveTo(i * 26 - 16, -160); c.lineTo(i * 26, -196); c.lineTo(i * 26 + 16, -160); c.fill(); } }
+  // 五官
+  c.strokeStyle = '#2C2C2C'; c.fillStyle = '#2C2C2C'; c.lineCap = 'round'; c.lineWidth = 6;
+  const eyeY = mood === 'look' ? -84 : -94;
+  if (mood === 'happy') {
+    [-26, 26].forEach(ex => { c.beginPath(); c.arc(ex, eyeY + 4, 12, Math.PI, 0); c.stroke(); });
+  } else {
+    const er = mood === 'shock' ? 11 : 8;
+    [-26, 26].forEach(ex => { c.beginPath(); c.arc(ex, eyeY, er, 0, 7); c.fill(); });
+  }
+  c.lineWidth = 6;
+  if (mood === 'angry' || mood === 'frown') {
+    c.beginPath(); c.moveTo(-42, eyeY - 26); c.lineTo(-14, eyeY - 14); c.moveTo(42, eyeY - 26); c.lineTo(14, eyeY - 14); c.stroke();
+  } else if (mood === 'sad') {
+    c.beginPath(); c.moveTo(-42, eyeY - 14); c.lineTo(-14, eyeY - 26); c.moveTo(42, eyeY - 14); c.lineTo(14, eyeY - 26); c.stroke();
+  }
+  // 嘴
+  const open = talking ? Math.max(4, Math.min(26, (level || 0) * 150)) : 0;
+  const my = -60;
+  if (open > 2) {
+    c.fillStyle = '#A33B3B'; c.beginPath(); c.ellipse(0, my + 2, 16, open, 0, 0, 7); c.fill();
+  } else if (mood === 'happy' || mood === 'smile') {
+    c.beginPath(); c.arc(0, my - 8, 20, .25, Math.PI - .25); c.stroke();
+  } else if (mood === 'sad' || mood === 'angry' || mood === 'frown') {
+    c.beginPath(); c.arc(0, my + 14, 18, Math.PI + .4, -.4); c.stroke();
+  } else if (mood === 'shock') {
+    c.beginPath(); c.arc(0, my, 10, 0, 7); c.stroke();
+  } else {
+    c.beginPath(); c.moveTo(-14, my); c.lineTo(14, my); c.stroke();
+  }
+  c.restore();
+}
+
+function subtitle(c, line) {
+  if (!line) return;
+  const r = ROLE[line.role];
+  c.font = `900 40px ${FONT}`;
+  const tw = c.measureText(line.text).width;
+  const chipW = 118, total = Math.min(1220, tw + chipW + 40), x = (1280 - total) / 2, y = 636;
+  c.fillStyle = 'rgba(16,24,22,.86)'; rr(c, x, y, total, 68, 18); c.fill();
+  c.fillStyle = r.color === '#1E2A2A' ? '#E8B04B' : r.color; rr(c, x + 8, y + 8, chipW - 14, 52, 12); c.fill();
+  c.fillStyle = r.color === '#1E2A2A' ? '#1E2A2A' : '#fff'; c.font = `900 30px ${FONT}`; c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.fillText(line.role, x + 8 + (chipW - 14) / 2, y + 35);
+  c.fillStyle = '#fff'; c.font = `900 40px ${FONT}`; c.textAlign = 'left';
+  c.fillText(line.text, x + chipW + 8, y + 36, total - chipW - 24);
+}
+
+function clapper(c, label, p) {
+  const s = Math.min(1, p * 5);
+  c.save(); c.translate(640, 175); c.scale(.6 + s * .4, .6 + s * .4); c.rotate(-.04);
+  c.fillStyle = '#1E2A2A'; rr(c, -220, -80, 440, 210, 16); c.fill();
+  c.save(); c.translate(-220, -84); c.rotate(-.12 * (1 - Math.min(1, p * 6)));
+  c.fillStyle = '#fff'; c.fillRect(0, -44, 440, 44);
+  c.fillStyle = '#1E2A2A'; for (let i = 0; i < 6; i++) { c.beginPath(); c.moveTo(i * 80 + 8, -44); c.lineTo(i * 80 + 50, -44); c.lineTo(i * 80 + 22, 0); c.lineTo(i * 80 - 20, 0); c.fill(); }
+  c.restore();
+  c.fillStyle = '#FFD45E'; c.font = `900 96px ${FONT}`; c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.fillText(label, 0, 26);
+  c.restore();
+}
+
+function confetti(c, t) {
+  const colors = ['#E8B04B', '#C8384A', '#1F7A55', '#2F6FB5', '#8B4FB0'];
+  for (let i = 0; i < 70; i++) {
+    const sx = (i * 197) % 1280, sp = 130 + (i * 37) % 170;
+    const y = ((t * sp + i * 47) % 780) - 40, x = sx + Math.sin(t * 2 + i) * 26;
+    c.fillStyle = colors[i % 5]; c.save(); c.translate(x, y); c.rotate(t * 3 + i); c.fillRect(-7, -5, 14, 10); c.restore();
+  }
+}
+
+function drawScene(c, beatName, p, t, speaker, level, line) {
+  const B = BEATS[beatName] || BEATS.intro;
+  c.save();
+  if (B.shake && p < .35) c.translate(Math.sin(t * 60) * 9, Math.cos(t * 50) * 5);
+  if (B.gray) c.filter = 'grayscale(1) brightness(.9)';
+  background(c);
+  const k = Math.min(1, p * (B.walk || 3)), ease = 1 - (1 - k) * (1 - k);
+  const mv = (to, from) => from === undefined ? to : from + (to - from) * ease;
+  const anX = 900 + (B.lean || 0);
+  person(c, anX, { body: ROLE['小安'].color, hair: '#2E2420', style: 'spike', mood: B.anM, talking: speaker === '小安', level, t, down: B.down });
+  desk(c, anX);
+  person(c, mv(B.mi, B.miFrom), { body: ROLE['小米'].color, hair: '#3A2A22', style: 'tail', mood: B.miM, talking: speaker === '小米', level, t });
+  person(c, mv(B.kai, B.kaiFrom), { body: ROLE['阿凱'].color, hair: '#4A3423', style: 'short', mood: B.kaiM, talking: speaker === '阿凱', level, t });
+  c.filter = 'none';
+  if (B.clap) clapper(c, B.clap, p);
+  if (B.confetti) confetti(c, t);
+  subtitle(c, line);
+  c.restore();
+}
+
+function drawTitle(c, p) {
+  c.fillStyle = '#1F4D3A'; c.fillRect(0, 0, 1280, 720);
+  c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.fillStyle = '#E8B04B'; c.font = `700 40px ${FONT}`; c.fillText(STORY.credit, 640, 250);
+  c.save(); c.translate(640, 360); const s = Math.min(1, p * 4); c.scale(.8 + .2 * s, .8 + .2 * s);
+  c.fillStyle = '#FBF7EF'; c.font = `900 104px ${FONT}`; c.fillText(STORY.title, 0, 0); c.restore();
+}
+
+function drawRewind(c, p, t) {
+  c.save(); c.filter = 'grayscale(1) brightness(.75)';
+  background(c);
+  person(c, 900, { body: '#888', hair: '#333', style: 'spike', mood: 'sad', t: -t * 4, down: 1 });
+  desk(c, 900);
+  person(c, -160 + 720 * p, { body: '#888', hair: '#333', style: 'tail', mood: 'calm', t: -t * 4 });
+  person(c, -160 + 490 * p, { body: '#888', hair: '#333', style: 'short', mood: 'calm', t: -t * 4 });
+  c.filter = 'none';
+  c.fillStyle = 'rgba(255,255,255,.28)';
+  for (let i = 0; i < 4; i++) c.fillRect(0, ((t * 900 + i * 190) % 760) - 20, 1280, 8);
+  c.fillStyle = '#fff'; c.font = `900 110px ${FONT}`; c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.fillText('◀◀ 倒帶中', 640, 280);
+  c.restore();
+}
+
+function drawEnd(c, p) {
+  c.fillStyle = '#E8B04B'; c.fillRect(0, 0, 1280, 720);
+  c.textAlign = 'center'; c.textBaseline = 'middle';
+  c.fillStyle = '#1E2A2A'; c.font = `900 84px ${FONT}`; c.fillText(STORY.endLine, 640, 250);
+  c.font = `700 46px ${FONT}`; c.fillText(STORY.endSub, 640, 370);
+  if (p > .35) { c.fillStyle = '#1F4D3A'; c.font = `900 40px ${FONT}`; c.fillText(STORY.endCredit, 640, 500); }
+}
+
+/* ===== 聲音 ===== */
+let actx = null;
+const audio = () => (actx = actx || new (window.AudioContext || window.webkitAudioContext)());
+const takes = new Map();    // id -> Blob
+const decoded = new Map();  // id -> {buf,gain,offset,dur,silent}
+
+// 存在這台電腦的瀏覽器，不上傳
+const DB = 'dubbingLesson-' + STORY.id;
+function db() {
+  return new Promise((ok, no) => {
+    const q = indexedDB.open(DB, 1);
+    q.onupgradeneeded = () => q.result.createObjectStore('takes');
+    q.onsuccess = () => ok(q.result);
+    q.onerror = () => no(q.error);
+  });
+}
+async function dbDo(mode, fn) {
+  const d = await db();
+  return new Promise((ok, no) => {
+    const tx = d.transaction('takes', mode), r = fn(tx.objectStore('takes'));
+    tx.oncomplete = () => { d.close(); ok(r && r.result); };
+    tx.onerror = () => { d.close(); no(tx.error); };
+  });
+}
+async function loadTakes() {
+  try {
+    const d = await db();
+    await new Promise(ok => {
+      const c = d.transaction('takes').objectStore('takes').openCursor();
+      c.onsuccess = () => { const k = c.result; if (k) { takes.set(k.key, k.value); k.continue(); } else ok(); };
+      c.onerror = () => ok();
+    });
+    d.close();
+  } catch (e) { console.warn('讀取錄音失敗', e); }
+}
+
+// 解碼並去掉前後空白、調整音量，讓每位學生聲音差不多大
+async function processed(id) {
+  if (decoded.has(id)) return decoded.get(id);
+  const blob = takes.get(id);
+  if (!blob) return null;
+  const buf = await audio().decodeAudioData(await blob.arrayBuffer());
+  const d = buf.getChannelData(0), sr = buf.sampleRate, win = Math.max(1, Math.floor(sr * .01));
+  let peak = 0;
+  for (let i = 0; i < d.length; i++) { const a = Math.abs(d[i]); if (a > peak) peak = a; }
+  const th = Math.max(.012, peak * .08);
+  let first = -1, last = -1;
+  for (let i = 0; i + win <= d.length; i += win) {
+    let s = 0; for (let j = i; j < i + win; j++) s += d[j] * d[j];
+    if (Math.sqrt(s / win) > th) { if (first < 0) first = i; last = i + win; }
+  }
+  if (first < 0) { first = 0; last = d.length; }
+  const offset = Math.max(0, first / sr - .12), end = Math.min(buf.duration, last / sr + .2);
+  const r = { buf, gain: peak > .001 ? Math.min(5, .85 / peak) : 1, offset, dur: Math.max(.2, end - offset), silent: peak < .006 };
+  decoded.set(id, r);
+  return r;
+}
+
+/* ===== 錄音室 ===== */
+const $ = id => document.getElementById(id);
+const sc = $('studioCanvas').getContext('2d');
+let cur = 1, mic = null, micAn = null, recorder = null, busy = false, previewSrc = null, previewAn = null, studioTimer = null, autoStop = null, recStart = 0;
+
+function renderList() {
+  $('list').innerHTML = LINES.map(l => `<button class="li ${l.id === cur ? 'on' : ''}" data-id="${l.id}"><span>${l.id}</span><span style="font-weight:900;color:${l.id === cur ? ROLE[l.role].color : 'inherit'}">${ROLE[l.role].icon} ${l.role}</span><span class="tx">${l.text}</span><span class="ok">${takes.has(l.id) ? '✓' : ''}</span></button>`).join('');
+  $('doneCount').textContent = `${takes.size} / ${LINES.length}`;
+  $('listenBtn').disabled = !takes.has(cur) || busy;
+}
+function pick(id) { stopPreview(); cur = id; renderList(); setStatus(`第 ${id} 句，請 ${byId(id).role} 準備。`); }
+const setStatus = s => { $('status').textContent = s; };
+$('list').addEventListener('click', e => { const b = e.target.closest('.li'); if (b && !busy) pick(+b.dataset.id); });
+$('nextLine').onclick = () => { if (!busy) pick(cur === LINES.length ? 1 : cur + 1); };
+
+function studioLoop() {
+  const l = byId(cur);
+  let lv = 0;
+  const an = recorder ? micAn : previewAn;
+  if (an) lv = rms(an);
+  $('meter').style.width = `${Math.min(100, (micAn ? rms(micAn) : 0) * 500)}%`;
+  drawScene(sc, l.beat, 1, performance.now() / 1000, (recorder || previewSrc) && l.role !== '導演' ? l.role : null, lv, l);
+}
+const tmp = new Float32Array(1024);
+function rms(an) { an.getFloatTimeDomainData(tmp); let s = 0; for (let i = 0; i < tmp.length; i++) s += tmp[i] * tmp[i]; return Math.sqrt(s / tmp.length); }
+
+async function openMic() {
+  if (mic) return mic;
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) throw new Error('nosupport');
+  const dev = $('micSel').value;
+  mic = await navigator.mediaDevices.getUserMedia({ audio: { deviceId: dev ? { exact: dev } : undefined, echoCancellation: true, noiseSuppression: true, autoGainControl: true } });
+  const c = audio(); await c.resume();
+  micAn = c.createAnalyser(); micAn.fftSize = 2048;
+  c.createMediaStreamSource(mic).connect(micAn);
+  fillMics();
+  return mic;
+}
+function closeMic() { if (mic) mic.getTracks().forEach(t => t.stop()); mic = null; micAn = null; $('meter').style.width = '0'; }
+async function fillMics() {
+  try {
+    const ds = (await navigator.mediaDevices.enumerateDevices()).filter(d => d.kind === 'audioinput');
+    const was = $('micSel').value;
+    $('micSel').innerHTML = '<option value="">預設麥克風</option>' + ds.filter(d => d.deviceId && d.deviceId !== 'default').map(d => `<option value="${d.deviceId}">${d.label || '麥克風'}</option>`).join('');
+    $('micSel').value = was;
+  } catch (e) {}
+}
+$('micSel').onchange = () => { if (!recorder) closeMic(); };
+function micError(e) {
+  const n = e && e.name;
+  if (n === 'NotAllowedError') return '麥克風被封鎖：請按網址列左邊的圖示，允許麥克風後重新整理。';
+  if (n === 'NotFoundError') return '找不到麥克風：請檢查有沒有接好，或在右下角換一支。';
+  if (n === 'NotReadableError') return '麥克風被別的程式佔用：請關掉視訊或錄音程式再試。';
+  if (e && e.message === 'nosupport') return '這個瀏覽器不能錄音：請改用 Chrome 或 Edge 從網址開啟。';
+  return '麥克風打不開，請換 Chrome 或 Edge 再試一次。';
+}
+const wait = ms => new Promise(r => setTimeout(r, ms));
+
+async function startRec() {
+  stopPreview();
+  try { await openMic(); } catch (e) { console.warn(e); setStatus(micError(e)); return; }
+  busy = true; setNavLock(true); renderList();
+  $('recBtn').disabled = true;
+  const box = $('count3'); box.classList.add('on');
+  for (const n of [3, 2, 1]) { box.textContent = n; await wait(650); }
+  box.classList.remove('on');
+  const type = ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4'].find(t => MediaRecorder.isTypeSupported(t));
+  const chunks = [];
+  const rec = new MediaRecorder(mic, type ? { mimeType: type } : undefined);
+  rec.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
+  rec.onstop = () => finishRec(new Blob(chunks, { type: rec.mimeType }));
+  rec.start();
+  recorder = rec; recStart = performance.now();
+  $('recBtn').disabled = false; $('recBtn').textContent = '■ 錄好了';
+  setStatus(`🔴 錄音中：${byId(cur).role}，開始說！`);
+  autoStop = setTimeout(stopRec, 15000);
+}
+function stopRec() {
+  clearTimeout(autoStop);
+  if (recorder && recorder.state !== 'inactive') recorder.stop();
+}
+async function finishRec(blob) {
+  recorder = null;
+  busy = false; setNavLock(false);
+  $('recBtn').textContent = '● 重錄這一句';
+  setStatus('存檔中……');
+  const id = cur;
+  takes.set(id, blob); decoded.delete(id);
+  try { await dbDo('readwrite', s => s.put(blob, id)); } catch (e) { console.warn('存檔失敗', e); }
+  renderList();
+  try {
+    const p = await processed(id);
+    if (p.silent) { setStatus('好像沒有錄到聲音，看一下音量條有沒有動，再重錄一次。'); return; }
+    setStatus('錄好了！聽聽看，滿意就按「下一句」。');
+    playPreview(id);
+  } catch (e) { console.warn(e); setStatus('這段錄音讀不出來，請重錄一次。'); takes.delete(id); renderList(); }
+}
+$('recBtn').onclick = e => { e.currentTarget.blur(); if (recorder) stopRec(); else if (!busy) startRec(); };
+
+async function playPreview(id) {
+  stopPreview();
+  const p = await processed(id); if (!p) return;
+  const c = audio(); await c.resume();
+  const s = c.createBufferSource(), g = c.createGain(), an = c.createAnalyser();
+  an.fftSize = 2048; s.buffer = p.buf; g.gain.value = p.gain;
+  s.connect(g); g.connect(an); an.connect(c.destination);
+  s.onended = () => { if (previewSrc === s) { previewSrc = null; previewAn = null; } };
+  previewSrc = s; previewAn = an;
+  s.start(0, p.offset, p.dur);
+}
+function stopPreview() { if (previewSrc) { try { previewSrc.stop(); } catch (e) {} } previewSrc = null; previewAn = null; }
+$('listenBtn').onclick = e => { e.currentTarget.blur(); playPreview(cur); };
+
+/* ===== 首映與合成影片 ===== */
+const fc = $('filmCanvas').getContext('2d');
+let filmRun = null, filmBlob = null, filmType = '';
+const PAD = .35;
+
+async function buildTimeline() {
+  const tl = [{ kind: 'title', dur: 2.6 }];
+  for (const it of ORDER) {
+    if (it === 'rewind') { tl.push({ kind: 'rewind', dur: 1.7 }); continue; }
+    const line = byId(it);
+    let p = null;
+    try { p = await processed(it); } catch (e) { console.warn(e); }
+    const speech = p ? p.dur : Math.max(1.6, line.text.length * .2);
+    tl.push({ kind: 'line', line, p, dur: speech + PAD, speech });
+  }
+  tl.push({ kind: 'end', dur: 4.5 });
+  let at = 0;
+  tl.forEach(s => { s.at = at; at += s.dur; });
+  return { tl, total: at };
+}
+
+function videoType() {
+  const list = ['video/mp4;codecs=avc1.42E01F,mp4a.40.2', 'video/mp4;codecs=avc1.42E01F,opus', 'video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm'];
+  return window.MediaRecorder ? list.find(t => MediaRecorder.isTypeSupported(t)) : '';
+}
+
+async function playFilm() {
+  if (filmRun) return;
+  stopPreview(); closeMic();
+  const { tl, total } = await buildTimeline();
+  const c = audio(); await c.resume();
+  const master = c.createGain(), an = c.createAnalyser(), dest = c.createMediaStreamDestination();
+  an.fftSize = 2048;
+  master.connect(an); master.connect(c.destination); master.connect(dest);
+  $('filmPanel').classList.add('off'); $('bar').classList.add('hide'); setNavLock(true);
+  drawTitle(fc, 0);
+
+  // 合成：畫面 + 聲音同步錄成影片；不支援時仍可直接放映
+  let vr = null; const chunks = []; filmBlob = null; $('dlFilm').disabled = true;
+  const type = videoType();
+  try {
+    if (type && $('filmCanvas').captureStream) {
+      const stream = $('filmCanvas').captureStream(30);
+      dest.stream.getAudioTracks().forEach(t => stream.addTrack(t));
+      vr = new MediaRecorder(stream, { mimeType: type, videoBitsPerSecond: 4000000, audioBitsPerSecond: 128000 });
+      vr.ondataavailable = e => { if (e.data.size) chunks.push(e.data); };
+      vr.start(1000);
+    }
+  } catch (e) { console.warn('無法合成影片，改為直接放映', e); vr = null; }
+
+  const t0 = c.currentTime + .25;
+  const sources = [];
+  tl.forEach(s => {
+    if (s.kind === 'line' && s.p) {
+      const src = c.createBufferSource(), g = c.createGain();
+      src.buffer = s.p.buf; g.gain.value = s.p.gain;
+      src.connect(g); g.connect(master);
+      src.start(t0 + s.at + .05, s.p.offset, s.p.dur);
+      sources.push(src);
+    }
+  });
+
+  const run = { done: false, aborted: false };
+  filmRun = run;
+  const finish = aborted => {
+    if (run.done) return;
+    run.done = true;
+    clearInterval(timer);
+    sources.forEach(s => { try { s.stop(); } catch (e) {} });
+    master.disconnect();
+    const reset = () => {
+      filmRun = null;
+      $('filmPanel').classList.remove('off'); $('bar').classList.remove('hide'); setNavLock(false);
+      $('playFilm').textContent = '▶ 再看一次';
+    };
+    if (vr && vr.state !== 'inactive') {
+      vr.onstop = () => {
+        if (!aborted && chunks.length) {
+          filmBlob = new Blob(chunks, { type: vr.mimeType }); filmType = vr.mimeType;
+          $('dlFilm').disabled = false;
+          $('filmMsg').textContent = `影片完成了（${Math.round(total)} 秒），可以下載保存。`;
+        } else if (aborted) { $('filmMsg').textContent = '已中止，可以重新開始。'; }
+        reset();
+      };
+      vr.stop();
+    } else {
+      $('filmMsg').textContent = aborted ? '已中止，可以重新開始。' : '放映完成。這個瀏覽器不能合成影片，改用 Chrome 或 Edge 就能下載。';
+      reset();
+    }
+  };
+  run.abort = () => finish(true);
+
+  const timer = setInterval(() => {
+    const t = c.currentTime - t0;
+    if (t >= total) { finish(false); return; }
+    if (t < 0) { drawTitle(fc, 0); return; }
+    const s = tl.find(x => t >= x.at && t < x.at + x.dur) || tl[tl.length - 1];
+    const p = (t - s.at) / s.dur;
+    if (s.kind === 'title') drawTitle(fc, p);
+    else if (s.kind === 'rewind') drawRewind(fc, p, t);
+    else if (s.kind === 'end') drawEnd(fc, p);
+    else {
+      const inSpeech = t - s.at < s.speech;
+      let lv = s.p ? rms(an) : (inSpeech ? .1 + Math.abs(Math.sin(t * 11)) * .08 : 0);
+      drawScene(fc, s.line.beat, p, t, inSpeech && s.line.role !== '導演' ? s.line.role : null, lv, s.line);
+    }
+  }, 33);
+}
+
+$('playFilm').onclick = e => {
+  e.currentTarget.blur();
+  playFilm().catch(err => {
+    console.error(err);
+    $('filmPanel').classList.remove('off'); $('bar').classList.remove('hide'); setNavLock(false); filmRun = null;
+    $('filmMsg').textContent = '放映時出了問題，請重新整理後再試一次；錄音都還在。';
+  });
+};
+$('dlFilm').onclick = () => {
+  if (!filmBlob) return;
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(filmBlob);
+  a.download = `${STORY.file}.${filmType.includes('mp4') ? 'mp4' : 'webm'}`;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 60000);
+};
+
+// 清除前多按一次確認，避免誤刪
+let armClear = null;
+$('clearAll').onclick = async e => {
+  const b = e.currentTarget;
+  if (!armClear) { b.textContent = '確定要刪除所有錄音和影片？再按一次'; armClear = setTimeout(() => { armClear = null; b.textContent = '下課清除所有錄音'; }, 4000); return; }
+  clearTimeout(armClear); armClear = null;
+  takes.clear(); decoded.clear(); filmBlob = null; $('dlFilm').disabled = true;
+  try { await dbDo('readwrite', s => s.clear()); } catch (err) { console.warn(err); }
+  b.textContent = '已清除所有錄音'; $('filmMsg').textContent = '錄音和影片都清除了。';
+  $('playFilm').textContent = '▶ 開始首映'; renderList();
+};
+
+/* ===== 投影片操作 ===== */
+const deck = $('deck'), slides = [...deck.querySelectorAll('.slide')];
+const notes = $('notes'), count = $('count'), progress = $('progress');
+let i = 0, typed = '', navLock = false;
+function setNavLock(v) { navLock = v; }
+function fit() { const s = Math.min(innerWidth / 1920, innerHeight / 1080); deck.style.transform = `translate(-50%, -50%) scale(${s})`; }
+function show(n) {
+  if (navLock) return;
+  i = Math.max(0, Math.min(slides.length - 1, n));
+  slides.forEach((el, k) => el.classList.toggle('on', k === i));
+  count.textContent = `${i + 1} / ${slides.length}`;
+  progress.style.width = `${(i + 1) / slides.length * 100}%`;
+  const aside = slides[i].querySelector('aside');
+  notes.innerHTML = `<b>第 ${i + 1} 頁講稿：</b>` + (aside ? aside.textContent : '（無）');
+  try { history.replaceState(null, '', '#' + (i + 1)); } catch (e) {}
+  const here = slides[i];
+  if (here.id === 'studio') { renderList(); if (!studioTimer) studioTimer = setInterval(studioLoop, 40); studioLoop(); }
+  else { clearInterval(studioTimer); studioTimer = null; stopPreview(); closeMic(); }
+  if (here.id === 'film') {
+    drawTitle(fc, 1);
+    const miss = LINES.filter(l => !takes.has(l.id)).map(l => l.id);
+    if (!filmRun && !filmBlob) $('filmMsg').textContent = miss.length ? `還有第 ${miss.join('、')} 句沒錄，播放時只會顯示字幕。` : `${LINES.length} 句都錄好了，一起看！`;
+  }
+}
+const go = d => show(i + d);
+const toggleNotes = () => notes.classList.toggle('on');
+function toggleFs() { if (document.fullscreenElement) document.exitFullscreen(); else document.documentElement.requestFullscreen?.().catch(() => {}); }
+$('prev').onclick = e => { e.stopPropagation(); go(-1); };
+$('next').onclick = e => { e.stopPropagation(); go(1); };
+$('noteBtn').onclick = e => { e.stopPropagation(); toggleNotes(); };
+$('fsBtn').onclick = e => { e.stopPropagation(); toggleFs(); };
+addEventListener('keydown', e => {
+  if (e.key === 'Escape' && filmRun && filmRun.abort) { filmRun.abort(); return; }
+  if (e.target.closest && e.target.closest('button, select')) { if (e.key === ' ' || e.key === 'Enter') return; }
+  if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); go(1); }
+  else if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); go(-1); }
+  else if (e.key === 'Home') show(0);
+  else if (e.key === 'End') show(slides.length - 1);
+  else if (e.key === 'n' || e.key === 'N') toggleNotes();
+  else if (e.key === 'f' || e.key === 'F') toggleFs();
+  else if (/^[0-9]$/.test(e.key)) typed += e.key;
+  else if (e.key === 'Enter' && typed) { show(parseInt(typed, 10) - 1); typed = ''; }
+});
+// 點畫面左三分之一上一頁，其餘下一頁；配音室與首映頁不用點擊換頁，避免誤觸
+addEventListener('click', e => {
+  if (e.target.closest('.bar, .notes') || slides[i].hasAttribute('data-interactive')) return;
+  go(e.clientX < innerWidth / 3 ? -1 : 1);
+});
+let x0 = null;
+addEventListener('touchstart', e => { x0 = e.touches[0].clientX; }, { passive: true });
+addEventListener('touchend', e => {
+  if (x0 === null || slides[i].hasAttribute('data-interactive')) { x0 = null; return; }
+  const dx = e.changedTouches[0].clientX - x0;
+  if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
+  x0 = null;
+});
+addEventListener('resize', fit);
+addEventListener('beforeunload', closeMic);
+fit();
+loadTakes().finally(() => {
+  show((parseInt(location.hash.slice(1), 10) || 1) - 1);
+});
+})();
+</script>
+</body>
+</html>
