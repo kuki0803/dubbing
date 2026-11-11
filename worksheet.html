@@ -3,88 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>他好像不開心・配音課學習單</title>
+<title>他好像不開心・配音課學習單（注音版）</title>
 <style>
-@page { size: A4; margin: 10mm 12mm; }
+@page { size: A4; margin: 9mm 11mm; }
 * { box-sizing: border-box; }
 html, body { margin: 0; background: #fff; }
-body { font-family: 'Microsoft JhengHei', 'PingFang TC', 'Noto Sans TC', sans-serif; color: #1E2A2A; font-size: 11.5pt; line-height: 1.5; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-.sheet { width: 186mm; margin: 0 auto; padding: 6mm 0; }
-header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 3px solid #1F4D3A; padding-bottom: 4px; margin-bottom: 9px; }
-h1 { margin: 0; font-size: 20pt; color: #1F4D3A; letter-spacing: 1px; }
-h1 small { font-size: 11pt; color: #1F7A55; font-weight: 700; margin-left: 8px; }
-.who { font-size: 11pt; white-space: nowrap; }
-.who span { display: inline-block; border-bottom: 1px solid #1E2A2A; min-width: 20mm; height: 1.2em; vertical-align: bottom; }
-section { border: 2px solid #1F4D3A; border-radius: 10px; padding: 6px 12px 7px; margin: 0 0 8px; break-inside: avoid; }
-.hd { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 13pt; margin-bottom: 4px; }
-.no { background: #E8B04B; border-radius: 999px; padding: 0 10px; font-size: 11pt; }
-.ln { display: inline-block; border-bottom: 1px solid #1E2A2A; min-width: 30mm; height: 1.25em; vertical-align: bottom; }
-.ln.m { min-width: 60mm; }
-.ln.l { min-width: 112mm; }
-.ln.f { display: block; min-width: 0; width: 100%; height: 1.7em; }
+body { font-family: 'Microsoft JhengHei', 'PingFang TC', 'Noto Sans TC', sans-serif; color: #1E2A2A; font-size: 12pt; line-height: 1.4; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+.sheet { width: 188mm; margin: 0 auto; padding: 5mm 0; }
+header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 3px solid #1F4D3A; padding-bottom: 4px; margin-bottom: 8px; }
+h1 { margin: 0; font-size: 21pt; color: #1F4D3A; letter-spacing: 1px; }
+h1 small { font-size: 12pt; color: #1F7A55; font-weight: 700; margin-left: 8px; }
+.who { font-size: 12pt; white-space: nowrap; }
+.who span.b { display: inline-block; border-bottom: 1px solid #1E2A2A; min-width: 18mm; height: 1.3em; vertical-align: bottom; }
+section { border: 2px solid #1F4D3A; border-radius: 10px; padding: 5px 12px 7px; margin: 0 0 7px; break-inside: avoid; }
+.hd { display: flex; align-items: center; gap: 8px; font-weight: 900; font-size: 14pt; margin-bottom: 3px; }
+.no { background: #E8B04B; border-radius: 999px; padding: 0 10px; font-size: 12pt; }
+.ln { display: inline-block; border-bottom: 1px solid #1E2A2A; min-width: 30mm; height: 1.5em; vertical-align: bottom; }
+.ln.f { display: block; min-width: 0; width: 100%; height: 2em; }
 .ch { display: inline-block; margin-right: 10px; white-space: nowrap; }
-table { width: 100%; border-collapse: collapse; margin: 2px 0 5px; font-size: 11pt; }
+table { width: 100%; border-collapse: collapse; margin: 2px 0 4px; font-size: 12pt; }
 th, td { border: 1.5px solid #1F4D3A; padding: 3px 8px; text-align: left; }
 th { background: #E3EFE6; }
-td.k { width: 62mm; font-weight: 700; }
-.row3 { display: grid; gap: 4px; }
-.step { display: grid; grid-template-columns: 8mm 20mm 1fr; align-items: end; gap: 4px; }
-.step b.n { display: inline-flex; width: 7mm; height: 7mm; border-radius: 50%; background: #C8384A; color: #fff; align-items: center; justify-content: center; font-size: 11pt; }
-.hint { color: #3D4A47; font-size: 10pt; }
+td.k { width: 78mm; font-weight: 700; }
+td.w { height: 12mm; }
+.step { display: grid; grid-template-columns: 8mm 24mm 1fr; align-items: end; gap: 4px; margin: 2px 0; }
+.step b.n { display: inline-flex; width: 7mm; height: 7mm; border-radius: 50%; background: #C8384A; color: #fff; align-items: center; justify-content: center; font-size: 12pt; }
+.hint { color: #3D4A47; font-size: 10.5pt; margin: 4px 0 0; }
 .say { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin: 3px 0 5px; }
-.say div { background: #E3EFE6; border-radius: 8px; padding: 4px 8px; font-weight: 700; font-size: 10.5pt; }
+.say div { background: #E3EFE6; border-radius: 8px; padding: 4px 8px; font-weight: 700; font-size: 11pt; }
 footer { text-align: center; color: #3D4A47; font-size: 9.5pt; margin-top: 2px; }
+p { margin: 0; }
+
+/* 注音：放在字的右邊 */
+.zc { display: inline-block; white-space: nowrap; }
+.zb { display: inline-block; position: relative; font-size: .39em; line-height: 1; vertical-align: middle; top: -.18em; width: 1.5em; height: calc(var(--n) * .92em); margin-left: .1em; font-weight: 700; letter-spacing: 0; }
+.zl { position: absolute; left: 0; top: 0; writing-mode: vertical-rl; text-orientation: upright; line-height: .92; }
+.zt { position: absolute; left: 1em; top: calc((var(--n) - 1) * .92em - .1em); width: .5em; text-align: center; font-style: normal; line-height: 1; }
+.zd { position: absolute; left: 0; width: 1em; top: -1em; text-align: center; font-style: normal; line-height: 1; }
 @media print { .sheet { padding: 0; } }
 </style>
 </head>
 <body>
 <div class="sheet">
 <header>
-<h1>他好像不開心<small>配音課學習單</small></h1>
-<div class="who">班級 <span></span>　座號 <span style="min-width:12mm"></span>　姓名 <span></span></div>
+<h1>他{ㄊㄚ}好{ㄏㄠˇ}像{ㄒㄧㄤˋ}不{ㄅㄨˋ}開{ㄎㄞ}心{ㄒㄧㄣ}<small>配{ㄆㄟˋ}音{ㄧㄣ}課{ㄎㄜˋ}學{ㄒㄩㄝˊ}習{ㄒㄧˊ}單{ㄉㄢ}</small></h1>
+<div class="who">班{ㄅㄢ}級{ㄐㄧˊ} <span class="b"></span>　座{ㄗㄨㄛˋ}號{ㄏㄠˋ} <span class="b" style="min-width:11mm"></span>　姓{ㄒㄧㄥˋ}名{ㄇㄧㄥˊ} <span class="b" style="min-width:24mm"></span></div>
 </header>
 
 <section>
-<div class="hd"><span class="no">①</span>我的角色</div>
-<p style="margin:0">我是：<span class="ch">○ 導演</span><span class="ch">○ 小米</span><span class="ch">○ 阿凱</span><span class="ch">○ 小安</span></p>
-<p style="margin:2px 0 0">我配的是第 <span class="ln" style="min-width:26mm"></span> 句。我最喜歡的一句台詞是：<span class="ln" style="min-width:60mm"></span></p>
+<div class="hd"><span class="no">①</span>我{ㄨㄛˇ}的{ㄉㄜ˙}角{ㄐㄧㄠˇ}色{ㄙㄜˋ}</div>
+<p>我{ㄨㄛˇ}是{ㄕˋ}：<span class="ch">○ 導{ㄉㄠˇ}演{ㄧㄢˇ}</span><span class="ch">○ 小{ㄒㄧㄠˇ}米{ㄇㄧˇ}</span><span class="ch">○ 阿{ㄚ}凱{ㄎㄞˇ}</span><span class="ch">○ 小{ㄒㄧㄠˇ}安{ㄢ}</span></p>
+<p style="margin-top:3px">我{ㄨㄛˇ}配{ㄆㄟˋ}的{ㄉㄜ˙}是{ㄕˋ}第{ㄉㄧˋ}<span class="ln" style="min-width:22mm"></span>句{ㄐㄩˋ}。我{ㄨㄛˇ}最{ㄗㄨㄟˋ}喜{ㄒㄧˇ}歡{ㄏㄨㄢ}的{ㄉㄜ˙}一{ㄧˊ}句{ㄐㄩˋ}台{ㄊㄞˊ}詞{ㄘˊ}是{ㄕˋ}：<span class="ln" style="min-width:40mm"></span></p>
 </section>
 
 <section>
-<div class="hd"><span class="no">②</span>看完影片：同一件事，三種反應</div>
+<div class="hd"><span class="no">②</span>看{ㄎㄢˋ}完{ㄨㄢˊ}影{ㄧㄥˇ}片{ㄆㄧㄢˋ}：同{ㄊㄨㄥˊ}一{ㄧˊ}件{ㄐㄧㄢˋ}事{ㄕˋ}，三{ㄙㄢ}種{ㄓㄨㄥˇ}反{ㄈㄢˇ}應{ㄧㄥˋ}</div>
 <table>
-<tr><th>反應</th><th>小安可能的感覺（寫下來）</th></tr>
-<tr><td class="k">A　一直追問：「快說啊！你怎麼了？」</td><td></td></tr>
-<tr><td class="k">B　假裝沒看到：「不關我們的事啦！」</td><td></td></tr>
-<tr><td class="k">C　關心＋陪伴：「你還好嗎？想說再說，我陪你。」</td><td></td></tr>
+<tr><th>反{ㄈㄢˇ}應{ㄧㄥˋ}</th><th>小{ㄒㄧㄠˇ}安{ㄢ}可{ㄎㄜˇ}能{ㄋㄥˊ}的{ㄉㄜ˙}感{ㄍㄢˇ}覺{ㄐㄩㄝˊ}（寫{ㄒㄧㄝˇ}下{ㄒㄧㄚˋ}來{ㄌㄞˊ}）</th></tr>
+<tr><td class="k">A　一{ㄧˋ}直{ㄓˊ}追{ㄓㄨㄟ}問{ㄨㄣˋ}：「快{ㄎㄨㄞˋ}說{ㄕㄨㄛ}啊{ㄚ}！你{ㄋㄧˇ}怎{ㄗㄣˇ}麼{ㄇㄜ˙}了{ㄌㄜ˙}？」</td><td class="w"></td></tr>
+<tr><td class="k">B　假{ㄐㄧㄚˇ}裝{ㄓㄨㄤ}沒{ㄇㄟˊ}看{ㄎㄢˋ}到{ㄉㄠˋ}：「不{ㄅㄨˋ}關{ㄍㄨㄢ}我{ㄨㄛˇ}們{ㄇㄣ˙}的{ㄉㄜ˙}事{ㄕˋ}啦{ㄌㄚ˙}！」</td><td class="w"></td></tr>
+<tr><td class="k">C　關{ㄍㄨㄢ}心{ㄒㄧㄣ}＋陪{ㄆㄟˊ}伴{ㄅㄢˋ}：「你{ㄋㄧˇ}還{ㄏㄞˊ}好{ㄏㄠˇ}嗎{ㄇㄚ˙}？想{ㄒㄧㄤˇ}說{ㄕㄨㄛ}再{ㄗㄞˋ}說{ㄕㄨㄛ}，我{ㄨㄛˇ}陪{ㄆㄟˊ}你{ㄋㄧˇ}。」</td><td class="w"></td></tr>
 </table>
-<p style="margin:0">如果我是小安，我選 <span class="ln" style="min-width:14mm"></span>，因為：<span class="ln" style="min-width:90mm"></span></p>
+<p>如{ㄖㄨˊ}果{ㄍㄨㄛˇ}我{ㄨㄛˇ}是{ㄕˋ}小{ㄒㄧㄠˇ}安{ㄢ}，我{ㄨㄛˇ}選{ㄒㄩㄢˇ}<span class="ln" style="min-width:12mm"></span>，因{ㄧㄣ}為{ㄨㄟˋ}：<span class="ln" style="min-width:80mm"></span></p>
 </section>
 
 <section>
-<div class="hd"><span class="no">③</span>幫助同學三步驟</div>
-<div class="row3">
-<div class="step"><b class="n">1</b><b>問一句</b><span>我會說：「<span class="ln l" style="min-width:100mm"></span>」</span></div>
-<div class="step"><b class="n">2</b><b>陪著他</b><span>我可以：<span class="ln l" style="min-width:100mm"></span></span></div>
-<div class="step"><b class="n">3</b><b>找大人</b><span>我會找：<span class="ch">○ 導師</span><span class="ch">○ 輔導老師</span><span class="ch">○ 家人</span><span class="ch">○ 其他：<span class="ln" style="min-width:18mm"></span></span></span></div>
-</div>
-<p class="hint" style="margin:4px 0 0">小提醒：如果同學一直很難過，或說到被欺負、想傷害自己，不要自己扛，要告訴大人。這不是打小報告，是在幫他。</p>
+<div class="hd"><span class="no">③</span>幫{ㄅㄤ}助{ㄓㄨˋ}同{ㄊㄨㄥˊ}學{ㄒㄩㄝˊ}三{ㄙㄢ}步{ㄅㄨˋ}驟{ㄗㄡˋ}</div>
+<div class="step"><b class="n">1</b><b>問{ㄨㄣˋ}一{ㄧˊ}句{ㄐㄩˋ}</b><span>我{ㄨㄛˇ}會{ㄏㄨㄟˋ}說{ㄕㄨㄛ}：「<span class="ln" style="min-width:95mm"></span>」</span></div>
+<div class="step"><b class="n">2</b><b>陪{ㄆㄟˊ}著{ㄓㄜ˙}他{ㄊㄚ}</b><span>我{ㄨㄛˇ}可{ㄎㄜˇ}以{ㄧˇ}：<span class="ln" style="min-width:95mm"></span></span></div>
+<div class="step"><b class="n">3</b><b>找{ㄓㄠˇ}大{ㄉㄚˋ}人{ㄖㄣˊ}</b><span>我{ㄨㄛˇ}會{ㄏㄨㄟˋ}找{ㄓㄠˇ}：<span class="ch">○ 導{ㄉㄠˇ}師{ㄕ}</span><span class="ch">○ 輔{ㄈㄨˇ}導{ㄉㄠˇ}老{ㄌㄠˇ}師{ㄕ}</span><span class="ch">○ 家{ㄐㄧㄚ}人{ㄖㄣˊ}</span></span></div>
+<p class="hint">小{ㄒㄧㄠˇ}提{ㄊㄧˊ}醒{ㄒㄧㄥˇ}：如{ㄖㄨˊ}果{ㄍㄨㄛˇ}同{ㄊㄨㄥˊ}學{ㄒㄩㄝˊ}一{ㄧˋ}直{ㄓˊ}很{ㄏㄣˇ}難{ㄋㄢˊ}過{ㄍㄨㄛˋ}，或{ㄏㄨㄛˋ}說{ㄕㄨㄛ}到{ㄉㄠˋ}被{ㄅㄟˋ}欺{ㄑㄧ}負{ㄈㄨ˙}、想{ㄒㄧㄤˇ}傷{ㄕㄤ}害{ㄏㄞˋ}自{ㄗˋ}己{ㄐㄧˇ}，不{ㄅㄨˊ}要{ㄧㄠˋ}自{ㄗˋ}己{ㄐㄧˇ}扛{ㄎㄤˊ}，要{ㄧㄠˋ}告{ㄍㄠˋ}訴{ㄙㄨˋ}大{ㄉㄚˋ}人{ㄖㄣˊ}。這{ㄓㄜˋ}不{ㄅㄨˊ}是{ㄕˋ}打{ㄉㄚˇ}小{ㄒㄧㄠˇ}報{ㄅㄠˋ}告{ㄍㄠˋ}，是{ㄕˋ}在{ㄗㄞˋ}幫{ㄅㄤ}他{ㄊㄚ}。</p>
 </section>
 
 <section>
-<div class="hd"><span class="no">④</span>今天帶走的話</div>
+<div class="hd"><span class="no">④</span>今{ㄐㄧㄣ}天{ㄊㄧㄢ}帶{ㄉㄞˋ}走{ㄗㄡˇ}的{ㄉㄜ˙}話{ㄏㄨㄚˋ}</div>
 <div class="say">
-<div>1「你還好嗎？我有點擔心你。」</div>
-<div>2「不想說沒關係，我陪你坐一下。」</div>
-<div>3「要不要我陪你去找老師？」</div>
+<div>1「你{ㄋㄧˇ}還{ㄏㄞˊ}好{ㄏㄠˇ}嗎{ㄇㄚ˙}？我{ㄨㄛˇ}有{ㄧㄡˇ}點{ㄉㄧㄢˇ}擔{ㄉㄢ}心{ㄒㄧㄣ}你{ㄋㄧˇ}。」</div>
+<div>2「不{ㄅㄨˋ}想{ㄒㄧㄤˇ}說{ㄕㄨㄛ}沒{ㄇㄟˊ}關{ㄍㄨㄢ}係{ㄒㄧ˙}，我{ㄨㄛˇ}陪{ㄆㄟˊ}你{ㄋㄧˇ}坐{ㄗㄨㄛˋ}一{ㄧˊ}下{ㄒㄧㄚˋ}。」</div>
+<div>3「要{ㄧㄠˋ}不{ㄅㄨ˙}要{ㄧㄠˋ}我{ㄨㄛˇ}陪{ㄆㄟˊ}你{ㄋㄧˇ}去{ㄑㄩˋ}找{ㄓㄠˇ}老{ㄌㄠˇ}師{ㄕ}？」</div>
 </div>
-<p style="margin:0">下次看到同學不開心，我最想用第 <span class="ln" style="min-width:12mm"></span> 句，或是我想說：</p>
+<p>下{ㄒㄧㄚˋ}次{ㄘˋ}看{ㄎㄢˋ}到{ㄉㄠˋ}同{ㄊㄨㄥˊ}學{ㄒㄩㄝˊ}不{ㄅㄨˋ}開{ㄎㄞ}心{ㄒㄧㄣ}，我{ㄨㄛˇ}最{ㄗㄨㄟˋ}想{ㄒㄧㄤˇ}用{ㄩㄥˋ}第{ㄉㄧˋ}<span class="ln" style="min-width:12mm"></span>句{ㄐㄩˋ}，或{ㄏㄨㄛˋ}是{ㄕˋ}我{ㄨㄛˇ}想{ㄒㄧㄤˇ}說{ㄕㄨㄛ}：</p>
 <span class="ln f"></span>
-<span class="ln f"></span>
-<p style="margin:4px 0 0">今天配音，我覺得最有趣的是：<span class="ln" style="min-width:90mm"></span></p>
+<p style="margin-top:3px">今{ㄐㄧㄣ}天{ㄊㄧㄢ}配{ㄆㄟˋ}音{ㄧㄣ}，我{ㄨㄛˇ}覺{ㄐㄩㄝˊ}得{ㄉㄜ˙}最{ㄗㄨㄟˋ}有{ㄧㄡˇ}趣{ㄑㄩˋ}的{ㄉㄜ˙}是{ㄕˋ}：<span class="ln" style="min-width:70mm"></span></p>
 </section>
 
-<footer>學習單 ①~④ 對應簡報頁面右上角的金色標籤</footer>
+<footer>學{ㄒㄩㄝˊ}習{ㄒㄧˊ}單{ㄉㄢ} ①~④ 對{ㄉㄨㄟˋ}應{ㄧㄥˋ}簡{ㄐㄧㄢˇ}報{ㄅㄠˋ}頁{ㄧㄝˋ}面{ㄇㄧㄢˋ}右{ㄧㄡˋ}上{ㄕㄤˋ}角{ㄐㄧㄠˇ}的{ㄉㄜ˙}金{ㄐㄧㄣ}色{ㄙㄜˋ}標{ㄅㄧㄠ}籤{ㄑㄧㄢ}</footer>
 </div>
+
+<script>
+// 把「字{注音}」轉成注音排在字右邊的版面（輕聲寫成 嗎{ㄇㄚ˙}）
+(() => {
+  const parse = s => { const out = []; const re = /([^{}])(?:\{([^{}]*)\})?/gu; let m; while ((m = re.exec(s))) out.push({ ch: m[1], z: m[2] || '' }); return out; };
+  const html = s => parse(s).map(t => {
+    const ch = t.ch === '&' ? '&amp;' : t.ch === '<' ? '&lt;' : t.ch === '>' ? '&gt;' : t.ch;
+    if (!t.z) return ch;
+    const tone = (t.z.match(/[ˊˇˋ˙]/) || [''])[0], letters = [...t.z.replace(/[ˊˇˋ˙]/g, '')];
+    return `<span class="zc">${ch}<span class="zb" style="--n:${letters.length}">${tone === '˙' ? '<i class="zd">˙</i>' : ''}<span class="zl">${letters.join('')}</span>${tone && tone !== '˙' ? `<i class="zt">${tone}</i>` : ''}</span></span>`;
+  }).join('');
+  const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, { acceptNode: n => (n.parentElement && !/^(SCRIPT|STYLE)$/.test(n.parentElement.tagName) && /\{[^}]*\}/.test(n.nodeValue)) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT });
+  const list = []; while (w.nextNode()) list.push(w.currentNode);
+  list.forEach(n => { const t = document.createElement('template'); t.innerHTML = html(n.nodeValue); n.replaceWith(t.content); });
+})();
+</script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>他好像不開心・配音課</title>
+<title>他好像不開心・配音課（注音版）</title>
 <style>
 * { box-sizing: border-box; }
 :root { --green: #1F4D3A; --mid: #1F7A55; --cream: #FBF7EF; --ink: #1E2A2A; --gold: #E8B04B; --red: #C8384A; --pale: #E3EFE6; --soft: #CFE3D6; --text: #3D4A47; --line: #D8D0BF; }
@@ -42,7 +42,7 @@ h2 { font-size: 72px; font-weight: 900; line-height: 1.15; }
 .studio { padding: 36px 44px; flex-direction: row; gap: 36px; background: var(--green); color: var(--cream); }
 .studio .left { width: 1160px; display: flex; flex-direction: column; gap: 18px; }
 .studio canvas { width: 1160px; height: 652px; border-radius: 22px; background: #fff; display: block; }
-.status { font-size: 36px; font-weight: 700; color: var(--gold); min-height: 52px; line-height: 52px; }
+.status { font-size: 36px; font-weight: 700; color: var(--gold); min-height: 112px; line-height: 1.55; }
 .ctrl { display: flex; gap: 18px; align-items: center; }
 button.b { border: 0; border-radius: 22px; font: inherit; font-size: 40px; font-weight: 900; padding: 22px 40px; cursor: pointer; background: var(--cream); color: var(--ink); transition: transform .1s ease; }
 button.b:active { transform: scale(.97); }
@@ -54,7 +54,7 @@ button.b.go { background: var(--gold); color: var(--ink); }
 .right { flex: 1; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
 .right .ttl { font-size: 36px; font-weight: 900; color: var(--gold); display: flex; justify-content: space-between; align-items: baseline; }
 .list { display: flex; flex-direction: column; gap: 7px; flex: 1; }
-.li { display: grid; grid-template-columns: 44px 104px 1fr 40px; gap: 8px; align-items: center; width: 100%; text-align: left; border: 0; border-radius: 14px; padding: 10px 14px; background: rgba(255,255,255,.1); color: var(--cream); font: inherit; font-size: 26px; cursor: pointer; }
+.li { display: grid; grid-template-columns: 44px 168px 1fr 40px; gap: 8px; align-items: center; width: 100%; text-align: left; border: 0; border-radius: 14px; padding: 10px 14px; background: rgba(255,255,255,.1); color: var(--cream); font: inherit; font-size: 26px; cursor: pointer; }
 .li.on { background: var(--cream); color: var(--ink); font-weight: 700; }
 .li .tx { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .li .ok { color: #7FE0A6; font-weight: 900; font-size: 30px; }
@@ -86,6 +86,18 @@ button.b.go { background: var(--gold); color: var(--ink); }
 .notes { position: fixed; left: 50%; bottom: 64px; transform: translateX(-50%); width: min(900px, calc(100vw - 32px)); max-height: 30vh; overflow: auto; padding: 14px 18px; border-radius: 14px; background: rgba(251, 247, 239, .96); color: #1E2A2A; font-size: 17px; line-height: 1.6; box-shadow: 0 10px 30px rgba(0,0,0,.3); display: none; z-index: 10; }
 .notes.on { display: block; }
 .notes b { color: #1F7A55; }
+
+/* ===== 注音：放在字的右邊，聲調在最後一個注音符號的右側，輕聲點在上方 ===== */
+.zc { display: inline-block; white-space: nowrap; }
+.zb { display: inline-block; position: relative; font-size: .39em; line-height: 1; vertical-align: middle; top: -.18em; width: 1.5em; height: calc(var(--n) * .92em); margin-left: .1em; font-weight: 700; letter-spacing: 0; }
+.zl { position: absolute; left: 0; top: 0; writing-mode: vertical-rl; text-orientation: upright; line-height: .92; }
+.zt { position: absolute; left: 1em; top: calc((var(--n) - 1) * .92em - .1em); width: .5em; text-align: center; font-style: normal; line-height: 1; }
+.zd { position: absolute; left: 0; width: 1em; top: -1em; text-align: center; font-style: normal; line-height: 1; }
+body.nozy .zb { display: none; }
+body.nozy .zc { display: inline; }
+.card { padding: 28px; }
+.card p { font-size: 36px; }
+.role span { font-size: 28px; }
 </style>
 </head>
 <body>
@@ -93,40 +105,40 @@ button.b.go { background: var(--gold); color: var(--ink); }
 <div class="deck" id="deck">
 
 <section class="slide dark" style="justify-content:center;gap:40px">
-<p class="kick">配音課</p>
-<h1 style="font-size:150px;font-weight:900;line-height:1.1">他好像不開心</h1>
-<p style="font-size:48px;color:var(--soft);width:1300px">一起替短片配音，看看大家的聲音變成影片：<br>看到同學不開心，我們可以怎麼幫他？</p>
-<aside>開場 30 秒。今天的流程：四人一組分角色、配音（約 20 分鐘）、看自己組的影片、討論。短片裡的角色都是虛構的。</aside>
+<p class="kick">配{ㄆㄟˋ}音{ㄧㄣ}課{ㄎㄜˋ}</p>
+<h1 style="font-size:150px;font-weight:900;line-height:1.1">他{ㄊㄚ}好{ㄏㄠˇ}像{ㄒㄧㄤˋ}不{ㄅㄨˋ}開{ㄎㄞ}心{ㄒㄧㄣ}</h1>
+<p style="font-size:48px;color:var(--soft);width:1664px;line-height:1.5">一{ㄧˋ}起{ㄑㄧˇ}替{ㄊㄧˋ}短{ㄉㄨㄢˇ}片{ㄆㄧㄢˋ}配{ㄆㄟˋ}音{ㄧㄣ}，看{ㄎㄢˋ}看{ㄎㄢ˙}大{ㄉㄚˋ}家{ㄐㄧㄚ}的{ㄉㄜ˙}聲{ㄕㄥ}音{ㄧㄣ}變{ㄅㄧㄢˋ}成{ㄔㄥˊ}影{ㄧㄥˇ}片{ㄆㄧㄢˋ}：<br>看{ㄎㄢˋ}到{ㄉㄠˋ}同{ㄊㄨㄥˊ}學{ㄒㄩㄝˊ}不{ㄅㄨˋ}開{ㄎㄞ}心{ㄒㄧㄣ}，我{ㄨㄛˇ}們{ㄇㄣ˙}可{ㄎㄜˇ}以{ㄧˇ}怎{ㄗㄣˇ}麼{ㄇㄜ˙}幫{ㄅㄤ}他{ㄊㄚ}？</p>
+<aside>開場 30 秒。今天的流程：四人一組分角色、配音（約 20 分鐘）、看自己組的影片、討論。短片裡的角色都是虛構的。注音可以按下方的「注音」鈕或 Z 鍵開關。注音依課本習慣標示變調：「一」和「不」標實際唸法（例如一起 ㄧˋ ㄑㄧˇ、不要 ㄅㄨˊ ㄧㄠˋ）。</aside>
 </section>
 
 <section class="slide">
-<p class="ws">學習單 ①</p>
-<p class="kick">分角色｜約 3 分鐘</p>
-<h2>今天先當配音員</h2>
-<p style="font-size:44px;color:var(--text)">短片裡，小安從早上就一直趴在桌上。同學看到了，會怎麼做？</p>
+<p class="ws">學{ㄒㄩㄝˊ}習{ㄒㄧˊ}單{ㄉㄢ} ①</p>
+<p class="kick">分{ㄈㄣ}角{ㄐㄧㄠˇ}色{ㄙㄜˋ}｜約{ㄩㄝ}三{ㄙㄢ}分{ㄈㄣ}鐘{ㄓㄨㄥ}</p>
+<h2>今{ㄐㄧㄣ}天{ㄊㄧㄢ}先{ㄒㄧㄢ}當{ㄉㄤ}配{ㄆㄟˋ}音{ㄧㄣ}員{ㄩㄢˊ}</h2>
+<p style="font-size:38px;color:var(--text)">短{ㄉㄨㄢˇ}片{ㄆㄧㄢˋ}裡{ㄌㄧˇ}，小{ㄒㄧㄠˇ}安{ㄢ}從{ㄘㄨㄥˊ}早{ㄗㄠˇ}上{ㄕㄤˋ}就{ㄐㄧㄡˋ}一{ㄧˋ}直{ㄓˊ}趴{ㄆㄚ}在{ㄗㄞˋ}桌{ㄓㄨㄛ}上{ㄕㄤˋ}。同{ㄊㄨㄥˊ}學{ㄒㄩㄝˊ}看{ㄎㄢˋ}到{ㄉㄠˋ}了{ㄌㄜ˙}，會{ㄏㄨㄟˋ}怎{ㄗㄣˇ}麼{ㄇㄜ˙}做{ㄗㄨㄛˋ}？</p>
 <div class="roles" style="background:var(--green);padding:28px;border-radius:30px">
-<div class="role"><p class="s">🎬</p><b>導演</b><span>第 1、7 句</span></div>
-<div class="role"><p class="s">🎒</p><b>小米</b><span>第 2、4、8、11 句</span></div>
-<div class="role"><p class="s">🧢</p><b>阿凱</b><span>第 3、6、10、13 句</span></div>
-<div class="role"><p class="s">📚</p><b>小安</b><span>第 5、9、12 句</span></div>
+<div class="role"><p class="s">🎬</p><b>導{ㄉㄠˇ}演{ㄧㄢˇ}</b><span>第{ㄉㄧˋ} 1、7 句{ㄐㄩˋ}</span></div>
+<div class="role"><p class="s">🎒</p><b>小{ㄒㄧㄠˇ}米{ㄇㄧˇ}</b><span>第{ㄉㄧˋ} 2、4、8、11 句{ㄐㄩˋ}</span></div>
+<div class="role"><p class="s">🧢</p><b>阿{ㄚ}凱{ㄎㄞˇ}</b><span>第{ㄉㄧˋ} 3、6、10、13 句{ㄐㄩˋ}</span></div>
+<div class="role"><p class="s">📚</p><b>小{ㄒㄧㄠˇ}安{ㄢ}</b><span>第{ㄉㄧˋ} 5、9、12 句{ㄐㄩˋ}</span></div>
 </div>
-<p class="big-rule">四人一組，自己選角色。想換角色？好好問：<span class="red">「我想跟你換，可以嗎？」</span></p>
+<p class="big-rule" style="font-size:38px">四{ㄙˋ}人{ㄖㄣˊ}一{ㄧˋ}組{ㄗㄨˇ}，自{ㄗˋ}己{ㄐㄧˇ}選{ㄒㄩㄢˇ}角{ㄐㄧㄠˇ}色{ㄙㄜˋ}。想{ㄒㄧㄤˇ}換{ㄏㄨㄢˋ}角{ㄐㄧㄠˇ}色{ㄙㄜˋ}？好{ㄏㄠˇ}好{ㄏㄠˇ}問{ㄨㄣˋ}：<span class="red">「我{ㄨㄛˇ}想{ㄒㄧㄤˇ}跟{ㄍㄣ}你{ㄋㄧˇ}換{ㄏㄨㄢˋ}，可{ㄎㄜˇ}以{ㄧˇ}嗎{ㄇㄚ˙}？」</span></p>
 <aside>每組四人，各選一個角色，用自願或抽籤都可以，不要指定誰演小安。不想錄音的學生可以先當導演，或由老師陪著錄。角色名字都是虛構的，如果班上有同名同學，先改名字。先約定：聽到別人的聲音只給讚，不笑。</aside>
 </section>
 
 <section class="slide studio" data-interactive id="studio">
 <div class="left">
 <canvas id="studioCanvas" width="1280" height="720"></canvas>
-<div class="status" id="status">按紅色按鈕開始；第一次請允許使用麥克風。</div>
+<div class="status" id="status">按{ㄢˋ}紅{ㄏㄨㄥˊ}色{ㄙㄜˋ}按{ㄢˋ}鈕{ㄋㄧㄡˇ}開{ㄎㄞ}始{ㄕˇ}；第{ㄉㄧˋ}一{ㄧ}次{ㄘˋ}請{ㄑㄧㄥˇ}允{ㄩㄣˇ}許{ㄒㄩˇ}使{ㄕˇ}用{ㄩㄥˋ}麥{ㄇㄞˋ}克{ㄎㄜˋ}風{ㄈㄥ}。</div>
 <div class="meter"><i id="meter"></i></div>
 <div class="ctrl">
-<button class="b rec" id="recBtn">● 開始錄音</button>
-<button class="b" id="listenBtn" disabled>▶ 聽一次</button>
-<button class="b go" id="nextLine">下一句 ➜</button>
+<button class="b rec" id="recBtn">● 開{ㄎㄞ}始{ㄕˇ}錄{ㄌㄨˋ}音{ㄧㄣ}</button>
+<button class="b" id="listenBtn" disabled>▶ 聽{ㄊㄧㄥ}一{ㄧˊ}次{ㄘˋ}</button>
+<button class="b go" id="nextLine">下{ㄒㄧㄚˋ}一{ㄧˊ}句{ㄐㄩˋ} ➜</button>
 </div>
 </div>
 <div class="right">
-<div class="ttl"><span>🎙️ 配音室</span><span id="doneCount">0 / 13</span></div>
+<div class="ttl"><span>🎙️ 配{ㄆㄟˋ}音{ㄧㄣ}室{ㄕˋ}</span><span id="doneCount">0 / 13</span></div>
 <div class="list" id="list"></div>
 <div class="tools"><select id="micSel" aria-label="選擇麥克風"><option value="">預設麥克風</option></select></div>
 </div>
@@ -137,11 +149,11 @@ button.b.go { background: var(--gold); color: var(--ink); }
 <section class="slide film" data-interactive id="film">
 <canvas id="filmCanvas" width="1280" height="720"></canvas>
 <div class="panel" id="filmPanel">
-<h2>🎬 首映會</h2>
-<p class="msg" id="filmMsg">準備好了嗎？一起看！</p>
+<h2>🎬 首{ㄕㄡˇ}映{ㄧㄥˋ}會{ㄏㄨㄟˋ}</h2>
+<p class="msg" id="filmMsg">準{ㄓㄨㄣˇ}備{ㄅㄟˋ}好{ㄏㄠˇ}了{ㄌㄜ˙}嗎{ㄇㄚ˙}？一{ㄧˋ}起{ㄑㄧˇ}看{ㄎㄢˋ}！</p>
 <div class="ctrl">
-<button class="b go" id="playFilm">▶ 開始首映</button>
-<button class="b" id="dlFilm" disabled>⬇ 下載影片</button>
+<button class="b go" id="playFilm">▶ 開{ㄎㄞ}始{ㄕˇ}首{ㄕㄡˇ}映{ㄧㄥˋ}</button>
+<button class="b" id="dlFilm" disabled>⬇ 下{ㄒㄧㄚˋ}載{ㄗㄞˋ}影{ㄧㄥˇ}片{ㄆㄧㄢˋ}</button>
 </div>
 <button class="clear" id="clearAll">下課清除所有錄音</button>
 </div>
@@ -149,41 +161,41 @@ button.b.go { background: var(--gold); color: var(--ink); }
 </section>
 
 <section class="slide">
-<p class="ws">學習單 ②</p>
-<p class="kick">看完影片｜約 3 分鐘</p>
-<h2>同一件事，三種反應，小安的感覺一樣嗎？</h2>
+<p class="ws">學{ㄒㄩㄝˊ}習{ㄒㄧˊ}單{ㄉㄢ} ②</p>
+<p class="kick">看{ㄎㄢˋ}完{ㄨㄢˊ}影{ㄧㄥˇ}片{ㄆㄧㄢˋ}｜約{ㄩㄝ}三{ㄙㄢ}分{ㄈㄣ}鐘{ㄓㄨㄥ}</p>
+<h2 style="font-size:56px">同{ㄊㄨㄥˊ}一{ㄧˊ}件{ㄐㄧㄢˋ}事{ㄕˋ}，三{ㄙㄢ}種{ㄓㄨㄥˇ}反{ㄈㄢˇ}應{ㄧㄥˋ}，小{ㄒㄧㄠˇ}安{ㄢ}的{ㄉㄜ˙}感{ㄍㄢˇ}覺{ㄐㄩㄝˊ}一{ㄧˊ}樣{ㄧㄤˋ}嗎{ㄇㄚ˙}？</h2>
 <div class="row" style="align-items:stretch">
-<div class="card bad"><p class="tag red">A</p><h3>一直追問</h3><p>「快說啊！你怎麼了？」</p></div>
-<div class="card bad"><p class="tag red">B</p><h3>假裝沒看到</h3><p>「不關我們的事啦！」</p></div>
-<div class="card good"><p class="tag" style="color:var(--mid)">C</p><h3>關心＋陪伴</h3><p>「你還好嗎？想說再說，我陪你。」</p></div>
+<div class="card bad"><p class="tag red">A</p><h3>一{ㄧˋ}直{ㄓˊ}追{ㄓㄨㄟ}問{ㄨㄣˋ}</h3><p>「快{ㄎㄨㄞˋ}說{ㄕㄨㄛ}啊{ㄚ}！你{ㄋㄧˇ}怎{ㄗㄣˇ}麼{ㄇㄜ˙}了{ㄌㄜ˙}？」</p></div>
+<div class="card bad"><p class="tag red">B</p><h3>假{ㄐㄧㄚˇ}裝{ㄓㄨㄤ}沒{ㄇㄟˊ}看{ㄎㄢˋ}到{ㄉㄠˋ}</h3><p>「不{ㄅㄨˋ}關{ㄍㄨㄢ}我{ㄨㄛˇ}們{ㄇㄣ˙}的{ㄉㄜ˙}事{ㄕˋ}啦{ㄌㄚ˙}！」</p></div>
+<div class="card good"><p class="tag" style="color:var(--mid)">C</p><h3>關{ㄍㄨㄢ}心{ㄒㄧㄣ}＋陪{ㄆㄟˊ}伴{ㄅㄢˋ}</h3><p>「你{ㄋㄧˇ}還{ㄏㄞˊ}好{ㄏㄠˇ}嗎{ㄇㄚ˙}？想{ㄒㄧㄤˇ}說{ㄕㄨㄛ}再{ㄗㄞˋ}說{ㄕㄨㄛ}，我{ㄨㄛˇ}陪{ㄆㄟˊ}你{ㄋㄧˇ}。」</p></div>
 </div>
-<p class="big-rule">如果你是小安，我選 ＿，因為：<span class="red">不會有壓力／不會更孤單／被尊重又有人陪</span></p>
+<p class="big-rule" style="font-size:40px">如{ㄖㄨˊ}果{ㄍㄨㄛˇ}你{ㄋㄧˇ}是{ㄕˋ}小{ㄒㄧㄠˇ}安{ㄢ}，我{ㄨㄛˇ}選{ㄒㄩㄢˇ} ＿，因{ㄧㄣ}為{ㄨㄟˋ}：<span class="red">不{ㄅㄨˊ}會{ㄏㄨㄟˋ}有{ㄧㄡˇ}壓{ㄧㄚ}力{ㄌㄧˋ}／不{ㄅㄨˊ}會{ㄏㄨㄟˋ}更{ㄍㄥˋ}孤{ㄍㄨ}單{ㄉㄢ}／被{ㄅㄟˋ}尊{ㄗㄨㄣ}重{ㄓㄨㄥˋ}又{ㄧㄡˋ}有{ㄧㄡˇ}人{ㄖㄣˊ}陪{ㄆㄟˊ}</span></p>
 <aside>剛看完影片，直接問。請每人比 A、B 或 C，用「我選＿，因為＿」回答，理由可以直接選畫面上的。引導重點：A 讓小安有壓力，B 讓小安更孤單，C 先關心、尊重他不想說，還陪著他。</aside>
 </section>
 
 <section class="slide dark" style="justify-content:center">
-<p class="ws">學習單 ③</p>
-<p class="kick">幫助同學三步驟｜約 2 分鐘</p>
-<h2 style="font-size:96px">關心他，不是逼他</h2>
+<p class="ws">學{ㄒㄩㄝˊ}習{ㄒㄧˊ}單{ㄉㄢ} ③</p>
+<p class="kick">幫{ㄅㄤ}助{ㄓㄨˋ}同{ㄊㄨㄥˊ}學{ㄒㄩㄝˊ}三{ㄙㄢ}步{ㄅㄨˋ}驟{ㄗㄡˋ}｜約{ㄩㄝ}二{ㄦˋ}分{ㄈㄣ}鐘{ㄓㄨㄥ}</p>
+<h2 style="font-size:96px">關{ㄍㄨㄢ}心{ㄒㄧㄣ}他{ㄊㄚ}，不{ㄅㄨˊ}是{ㄕˋ}逼{ㄅㄧ}他{ㄊㄚ}</h2>
 <div class="row" style="align-items:stretch">
-<div class="card"><p class="tag red">1</p><h3>問一句</h3><p>「你還好嗎？」</p></div>
-<div class="card"><p class="tag red">2</p><h3>陪著他</h3><p>「不想說也沒關係」</p></div>
-<div class="card"><p class="tag red">3</p><h3>找大人</h3><p>「我們一起去找老師」</p></div>
+<div class="card"><p class="tag red">1</p><h3>問{ㄨㄣˋ}一{ㄧˊ}句{ㄐㄩˋ}</h3><p>「你{ㄋㄧˇ}還{ㄏㄞˊ}好{ㄏㄠˇ}嗎{ㄇㄚ˙}？」</p></div>
+<div class="card"><p class="tag red">2</p><h3>陪{ㄆㄟˊ}著{ㄓㄜ˙}他{ㄊㄚ}</h3><p>「不{ㄅㄨˋ}想{ㄒㄧㄤˇ}說{ㄕㄨㄛ}也{ㄧㄝˇ}沒{ㄇㄟˊ}關{ㄍㄨㄢ}係{ㄒㄧ˙}」</p></div>
+<div class="card"><p class="tag red">3</p><h3>找{ㄓㄠˇ}大{ㄉㄚˋ}人{ㄖㄣˊ}</h3><p>「我{ㄨㄛˇ}們{ㄇㄣ˙}一{ㄧˋ}起{ㄑㄧˇ}去{ㄑㄩˋ}找{ㄓㄠˇ}老{ㄌㄠˇ}師{ㄕ}」</p></div>
 </div>
 <aside>全班一起唸一次三步驟，再請學生說說看，生活中什麼時候用得到。重點是第 3 步：如果同學一直很難過，或說到被欺負、想傷害自己，不要自己扛，要找老師或其他大人幫忙，這不是打小報告。</aside>
 </section>
 
 <section class="slide dark" style="justify-content:center">
-<p class="ws">學習單 ④</p>
-<p class="kick">今天帶走的話｜約 2 分鐘</p>
-<h2 style="font-size:84px">看到同學不開心，你想說哪一句？</h2>
+<p class="ws">學{ㄒㄩㄝˊ}習{ㄒㄧˊ}單{ㄉㄢ} ④</p>
+<p class="kick">今{ㄐㄧㄣ}天{ㄊㄧㄢ}帶{ㄉㄞˋ}走{ㄗㄡˇ}的{ㄉㄜ˙}話{ㄏㄨㄚˋ}｜約{ㄩㄝ}二{ㄦˋ}分{ㄈㄣ}鐘{ㄓㄨㄥ}</p>
+<h2 style="font-size:70px">看{ㄎㄢˋ}到{ㄉㄠˋ}同{ㄊㄨㄥˊ}學{ㄒㄩㄝˊ}不{ㄅㄨˋ}開{ㄎㄞ}心{ㄒㄧㄣ}，你{ㄋㄧˇ}想{ㄒㄧㄤˇ}說{ㄕㄨㄛ}哪{ㄋㄚˇ}一{ㄧˊ}句{ㄐㄩˋ}？</h2>
 <div class="row" style="align-items:stretch">
-<div class="card"><p class="tag red">1</p><p style="font-size:44px;font-weight:900;color:var(--ink)">「你還好嗎？<br>我有點擔心你。」</p></div>
-<div class="card"><p class="tag red">2</p><p style="font-size:44px;font-weight:900;color:var(--ink)">「不想說沒關係，<br>我陪你坐一下。」</p></div>
-<div class="card"><p class="tag red">3</p><p style="font-size:44px;font-weight:900;color:var(--ink)">「要不要我陪你<br>去找老師？」</p></div>
+<div class="card"><p class="tag red">1</p><p style="font-size:38px;font-weight:900;color:var(--ink)">「你{ㄋㄧˇ}還{ㄏㄞˊ}好{ㄏㄠˇ}嗎{ㄇㄚ˙}？我{ㄨㄛˇ}有{ㄧㄡˇ}點{ㄉㄧㄢˇ}擔{ㄉㄢ}心{ㄒㄧㄣ}你{ㄋㄧˇ}。」</p></div>
+<div class="card"><p class="tag red">2</p><p style="font-size:38px;font-weight:900;color:var(--ink)">「不{ㄅㄨˋ}想{ㄒㄧㄤˇ}說{ㄕㄨㄛ}沒{ㄇㄟˊ}關{ㄍㄨㄢ}係{ㄒㄧ˙}，我{ㄨㄛˇ}陪{ㄆㄟˊ}你{ㄋㄧˇ}坐{ㄗㄨㄛˋ}一{ㄧˊ}下{ㄒㄧㄚˋ}。」</p></div>
+<div class="card"><p class="tag red">3</p><p style="font-size:38px;font-weight:900;color:var(--ink)">「要{ㄧㄠˋ}不{ㄅㄨ˙}要{ㄧㄠˋ}我{ㄨㄛˇ}陪{ㄆㄟˊ}你{ㄋㄧˇ}去{ㄑㄩˋ}找{ㄓㄠˇ}老{ㄌㄠˇ}師{ㄕ}？」</p></div>
 </div>
-<p class="big-rule" style="color:var(--gold)">比 1、2、3，告訴組員！</p>
-<aside>每人比一個數字即可。提醒：如果有同學在討論中提到自己正遇到困難、被欺負或想傷害自己，請依學校輔導流程，課後私下關心並轉介輔導老師。下課前回首映頁按「下課清除所有錄音」。</aside>
+<p class="big-rule" style="color:var(--gold)">比{ㄅㄧˇ} 1、2、3，告{ㄍㄠˋ}訴{ㄙㄨˋ}組{ㄗㄨˇ}員{ㄩㄢˊ}！</p>
+<aside>每人比一個數字即可。提醒：如果有同學在討論中提到自己正遇到困難、被欺負或想傷害自己，請依學校輔導流程，課後私下關心並轉介輔導老師。下課前回首映頁按「清除所有錄音」。</aside>
 </section>
 
 </div>
@@ -192,6 +204,7 @@ button.b.go { background: var(--gold); color: var(--ink); }
 <button id="prev" title="上一頁">◀</button>
 <span class="count" id="count"></span>
 <button id="next" title="下一頁">▶</button>
+<button id="zyBtn" title="注音 (Z)">注音</button>
 <button id="noteBtn" title="講稿 (N)">講稿</button>
 <button id="fsBtn" title="全螢幕 (F)">全螢幕</button>
 </div>
@@ -201,57 +214,100 @@ button.b.go { background: var(--gold); color: var(--ink); }
 /* ===== 劇本：新課主要改這一段（STORY、ROLE、LINES、ORDER），再依劇情調整下面的 BEATS =====
    STORY.id 每一課都要換，錄音依它分開保存，沿用舊的會聽到舊課的聲音。 */
 const STORY = {
-  id: 'care-for-xiaoan-v1',
-  title: '他好像不開心',
-  credit: '全班配音作品',
-  endLine: '關心他，也尊重他',
-  endSub: '問一句　＋　陪著他　＋　找大人',
-  endCredit: '配音：全班一起完成 👏',
+  id: 'care-for-xiaoan-zy-v1',
+  title: '他{ㄊㄚ}好{ㄏㄠˇ}像{ㄒㄧㄤˋ}不{ㄅㄨˋ}開{ㄎㄞ}心{ㄒㄧㄣ}',
+  credit: '全{ㄑㄩㄢˊ}班{ㄅㄢ}配{ㄆㄟˋ}音{ㄧㄣ}作{ㄗㄨㄛˋ}品{ㄆㄧㄣˇ}',
+  endLine: '關{ㄍㄨㄢ}心{ㄒㄧㄣ}他{ㄊㄚ}，也{ㄧㄝˇ}尊{ㄗㄨㄣ}重{ㄓㄨㄥˋ}他{ㄊㄚ}',
+  endSub: '問{ㄨㄣˋ}一{ㄧˊ}句{ㄐㄩˋ}　＋　陪{ㄆㄟˊ}著{ㄓㄜ˙}他{ㄊㄚ}　＋　找{ㄓㄠˇ}大{ㄉㄚˋ}人{ㄖㄣˊ}',
+  endCredit: '配{ㄆㄟˋ}音{ㄧㄣ}：全{ㄑㄩㄢˊ}班{ㄅㄢ}一{ㄧˋ}起{ㄑㄧˇ}完{ㄨㄢˊ}成{ㄔㄥˊ} 👏',
   file: '他好像不開心_配音作品',
 };
 const ROLE = {
-  '導演': { color: '#1E2A2A', icon: '🎬' },
-  '小米': { color: '#8B4FB0', icon: '🎒' },
-  '阿凱': { color: '#2F6FB5', icon: '🧢' },
-  '小安': { color: '#D0702A', icon: '📚' },
+  '導演': { color: '#1E2A2A', icon: '🎬', zy: '導{ㄉㄠˇ}演{ㄧㄢˇ}' },
+  '小米': { color: '#8B4FB0', icon: '🎒', zy: '小{ㄒㄧㄠˇ}米{ㄇㄧˇ}' },
+  '阿凱': { color: '#2F6FB5', icon: '🧢', zy: '阿{ㄚ}凱{ㄎㄞˇ}' },
+  '小安': { color: '#D0702A', icon: '📚', zy: '小{ㄒㄧㄠˇ}安{ㄢ}' },
 };
 const LINES = [
-  { id: 1,  role: '導演', text: '第一次拍攝，開麥拉！', beat: 'intro' },
-  { id: 2,  role: '小米', text: '小安從早上就一直趴著，好像不開心。', beat: 'notice' },
-  { id: 3,  role: '阿凱', text: '喂，你怎麼了啦？快說啊！', beat: 'push1' },
-  { id: 4,  role: '小米', text: '對啊對啊，你說出來我們才知道怎麼幫你！', beat: 'push2' },
-  { id: 5,  role: '小安', text: '不要一直問我啦……', beat: 'hurt' },
-  { id: 6,  role: '阿凱', text: '哎唷算了啦，不關我們的事，走啦！', beat: 'leave' },
-  { id: 7,  role: '導演', text: '卡！倒帶！這樣不對，重來！', beat: 'cut' },
-  { id: 8,  role: '小米', text: '小安，你還好嗎？我有點擔心你。', beat: 'care' },
-  { id: 9,  role: '小安', text: '我現在不太想說話。', beat: 'quiet' },
-  { id: 10, role: '阿凱', text: '沒關係，我們先陪你坐一下，好嗎？', beat: 'sit' },
-  { id: 11, role: '小米', text: '你想說的時候，我們都在。', beat: 'warm' },
-  { id: 12, role: '小安', text: '好……謝謝你們。', beat: 'thanks' },
-  { id: 13, role: '阿凱', text: '如果你一直很難過，我們陪你去找老師，好嗎？', beat: 'teacher' },
-];
+  { id: 1,  role: '導演', zy: '第{ㄉㄧˋ}一{ㄧ}次{ㄘˋ}拍{ㄆㄞ}攝{ㄕㄜˋ}，開{ㄎㄞ}麥{ㄇㄞˋ}拉{ㄌㄚ}！', beat: 'intro' },
+  { id: 2,  role: '小米', zy: '小{ㄒㄧㄠˇ}安{ㄢ}從{ㄘㄨㄥˊ}早{ㄗㄠˇ}上{ㄕㄤˋ}就{ㄐㄧㄡˋ}一{ㄧˋ}直{ㄓˊ}趴{ㄆㄚ}著{ㄓㄜ˙}，好{ㄏㄠˇ}像{ㄒㄧㄤˋ}不{ㄅㄨˋ}開{ㄎㄞ}心{ㄒㄧㄣ}。', beat: 'notice' },
+  { id: 3,  role: '阿凱', zy: '喂{ㄨㄟˋ}，你{ㄋㄧˇ}怎{ㄗㄣˇ}麼{ㄇㄜ˙}了{ㄌㄜ˙}啦{ㄌㄚ˙}？快{ㄎㄨㄞˋ}說{ㄕㄨㄛ}啊{ㄚ}！', beat: 'push1' },
+  { id: 4,  role: '小米', zy: '對{ㄉㄨㄟˋ}啊{ㄚ}對{ㄉㄨㄟˋ}啊{ㄚ}，你{ㄋㄧˇ}說{ㄕㄨㄛ}出{ㄔㄨ}來{ㄌㄞˊ}我{ㄨㄛˇ}們{ㄇㄣ˙}才{ㄘㄞˊ}知{ㄓ}道{ㄉㄠˋ}怎{ㄗㄣˇ}麼{ㄇㄜ˙}幫{ㄅㄤ}你{ㄋㄧˇ}！', beat: 'push2' },
+  { id: 5,  role: '小安', zy: '不{ㄅㄨˊ}要{ㄧㄠˋ}一{ㄧˋ}直{ㄓˊ}問{ㄨㄣˋ}我{ㄨㄛˇ}啦{ㄌㄚ˙}……', beat: 'hurt' },
+  { id: 6,  role: '阿凱', zy: '哎{ㄞ}唷{ㄧㄛ}算{ㄙㄨㄢˋ}了{ㄌㄜ˙}啦{ㄌㄚ˙}，不{ㄅㄨˋ}關{ㄍㄨㄢ}我{ㄨㄛˇ}們{ㄇㄣ˙}的{ㄉㄜ˙}事{ㄕˋ}，走{ㄗㄡˇ}啦{ㄌㄚ˙}！', beat: 'leave' },
+  { id: 7,  role: '導演', zy: '卡{ㄎㄚˇ}！倒{ㄉㄠˇ}帶{ㄉㄞˋ}！這{ㄓㄜˋ}樣{ㄧㄤˋ}不{ㄅㄨˊ}對{ㄉㄨㄟˋ}，重{ㄔㄨㄥˊ}來{ㄌㄞˊ}！', beat: 'cut' },
+  { id: 8,  role: '小米', zy: '小{ㄒㄧㄠˇ}安{ㄢ}，你{ㄋㄧˇ}還{ㄏㄞˊ}好{ㄏㄠˇ}嗎{ㄇㄚ˙}？我{ㄨㄛˇ}有{ㄧㄡˇ}點{ㄉㄧㄢˇ}擔{ㄉㄢ}心{ㄒㄧㄣ}你{ㄋㄧˇ}。', beat: 'care' },
+  { id: 9,  role: '小安', zy: '我{ㄨㄛˇ}現{ㄒㄧㄢˋ}在{ㄗㄞˋ}不{ㄅㄨˊ}太{ㄊㄞˋ}想{ㄒㄧㄤˇ}說{ㄕㄨㄛ}話{ㄏㄨㄚˋ}。', beat: 'quiet' },
+  { id: 10, role: '阿凱', zy: '沒{ㄇㄟˊ}關{ㄍㄨㄢ}係{ㄒㄧ˙}，我{ㄨㄛˇ}們{ㄇㄣ˙}先{ㄒㄧㄢ}陪{ㄆㄟˊ}你{ㄋㄧˇ}坐{ㄗㄨㄛˋ}一{ㄧˊ}下{ㄒㄧㄚˋ}，好{ㄏㄠˇ}嗎{ㄇㄚ˙}？', beat: 'sit' },
+  { id: 11, role: '小米', zy: '你{ㄋㄧˇ}想{ㄒㄧㄤˇ}說{ㄕㄨㄛ}的{ㄉㄜ˙}時{ㄕˊ}候{ㄏㄡˋ}，我{ㄨㄛˇ}們{ㄇㄣ˙}都{ㄉㄡ}在{ㄗㄞˋ}。', beat: 'warm' },
+  { id: 12, role: '小安', zy: '好{ㄏㄠˇ}……謝{ㄒㄧㄝˋ}謝{ㄒㄧㄝ˙}你{ㄋㄧˇ}們{ㄇㄣ˙}。', beat: 'thanks' },
+  { id: 13, role: '阿凱', zy: '如{ㄖㄨˊ}果{ㄍㄨㄛˇ}你{ㄋㄧˇ}一{ㄧˋ}直{ㄓˊ}很{ㄏㄣˇ}難{ㄋㄢˊ}過{ㄍㄨㄛˋ}，我{ㄨㄛˇ}們{ㄇㄣ˙}陪{ㄆㄟˊ}你{ㄋㄧˇ}去{ㄑㄩˋ}找{ㄓㄠˇ}老{ㄌㄠˇ}師{ㄕ}，好{ㄏㄠˇ}嗎{ㄇㄚ˙}？', beat: 'teacher' },
+].map(l => ({ ...l, text: l.zy.replace(/\{[^}]*\}/g, '') }));
 const byId = id => LINES.find(l => l.id === id);
 // 影片順序：第 7 句導演喊「倒帶」後接倒帶特效，再從第 8 句重新演
 const ORDER = [1, 2, 3, 4, 5, 6, 7, 'rewind', 8, 9, 10, 11, 12, 13];
 
 /* ===== 畫面 ===== */
 const FONT = "'Microsoft JhengHei','PingFang TC','Noto Sans TC',sans-serif";
+
+/* ===== 注音工具：字後面用 {注音} 標示，例如 好{ㄏㄠˇ}；輕聲寫成 嗎{ㄇㄚ˙} ===== */
+let ZY = true;
+try { if (localStorage.getItem('dubZy') === '0') ZY = false; } catch (e) {}
+function zparse(s) { const out = []; const re = /([^{}])(?:\{([^{}]*)\})?/gu; let m; while ((m = re.exec(s))) out.push({ ch: m[1], z: m[2] || '' }); return out; }
+function zsplit(z) { return { letters: [...z.replace(/[ˊˇˋ˙]/g, '')], tone: (z.match(/[ˊˇˋ˙]/) || [''])[0] }; }
+function zhtml(s) {
+  return zparse(s).map(t => {
+    const ch = t.ch === '&' ? '&amp;' : t.ch === '<' ? '&lt;' : t.ch === '>' ? '&gt;' : t.ch;
+    if (!t.z) return ch;
+    const { letters, tone } = zsplit(t.z);
+    return `<span class="zc">${ch}<span class="zb" style="--n:${letters.length}">${tone === '˙' ? '<i class="zd">˙</i>' : ''}<span class="zl">${letters.join('')}</span>${tone && tone !== '˙' ? `<i class="zt">${tone}</i>` : ''}</span></span>`;
+  }).join('');
+}
+function zwalk(root) {
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, { acceptNode: n => (n.parentElement && !/^(SCRIPT|STYLE|ASIDE)$/.test(n.parentElement.tagName) && /\{[^}]*\}/.test(n.nodeValue)) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT });
+  const list = []; while (w.nextNode()) list.push(w.currentNode);
+  list.forEach(n => { const t = document.createElement('template'); t.innerHTML = zhtml(n.nodeValue); n.replaceWith(t.content); });
+}
+// 畫布：每個有注音的字佔 1.52 個字寬
+function zadv(c, t, S) { if (t.z && ZY) return S * 1.52; c.font = `900 ${S}px ${FONT}`; return c.measureText(t.ch).width; }
+function zwidth(c, toks, S) { return toks.reduce((a, t) => a + zadv(c, t, S), 0); }
+function drawZ(c, toks, x, cy, S, color, align) {
+  const w = zwidth(c, toks, S);
+  let px = align === 'left' ? x : x - w / 2;
+  c.textBaseline = 'middle'; c.textAlign = 'left';
+  for (const t of toks) {
+    const adv = zadv(c, t, S);
+    c.font = `900 ${S}px ${FONT}`; c.fillStyle = color;
+    c.fillText(t.ch, px, cy);
+    if (t.z && ZY) {
+      const { letters, tone } = zsplit(t.z), zs = S * .4, step = zs * .9, n = letters.length;
+      const lx = px + S * 1.04 + zs / 2, top = cy - (n - 1) * step / 2;
+      c.font = `900 ${zs}px ${FONT}`; c.textAlign = 'center';
+      letters.forEach((ch, k) => c.fillText(ch, lx, top + k * step));
+      if (tone === '˙') c.fillText('˙', lx, top - zs * .75);
+      else if (tone) c.fillText(tone, lx + zs * .8, top + (n - 1) * step - zs * .12);
+      c.textAlign = 'left';
+    }
+    px += adv;
+  }
+}
+
 // kai / mi：阿凱、小米的位置（kaiFrom / miFrom 讓他們走進或走出畫面，walk 是走路速度）
 // kaiM / miM / anM：三個人的表情；down：小安趴著；lean：小安往後縮
 const BEATS = {
-  intro:   { kai: 330, mi: 560, anM: 'sad',  down: 1, kaiM: 'calm', miM: 'calm', clap: '開麥拉！' },
+  intro:   { kai: 330, mi: 560, anM: 'sad',  down: 1, kaiM: 'calm', miM: 'calm', clap: '開{ㄎㄞ}麥{ㄇㄞˋ}拉{ㄌㄚ}！' },
   notice:  { kai: 330, mi: 560, anM: 'sad',  down: 1, kaiM: 'calm', miM: 'look' },
   push1:   { kai: 660, kaiFrom: 330, mi: 560, anM: 'sad', down: 1, kaiM: 'look', miM: 'look' },
   push2:   { kai: 660, mi: 760, miFrom: 560, anM: 'sad', down: 1, lean: 30, kaiM: 'look', miM: 'look' },
   hurt:    { kai: 660, mi: 760, anM: 'sad', down: 1, lean: 40, kaiM: 'shock', miM: 'shock', gray: 1, shake: 1 },
   leave:   { kai: -160, kaiFrom: 660, mi: -160, miFrom: 760, walk: 1.3, anM: 'sad', down: 1, kaiM: 'calm', miM: 'frown', gray: 1 },
-  cut:     { kai: -160, mi: -160, anM: 'sad', down: 1, kaiM: 'calm', miM: 'calm', gray: 1, clap: '卡！' },
+  cut:     { kai: -160, mi: -160, anM: 'sad', down: 1, kaiM: 'calm', miM: 'calm', gray: 1, clap: '卡{ㄎㄚˇ}！' },
   care:    { kai: 330, kaiFrom: -160, mi: 700, miFrom: -160, walk: 2, anM: 'sad', down: 1, kaiM: 'calm', miM: 'sad' },
   quiet:   { kai: 330, mi: 700, anM: 'sad', down: 0, kaiM: 'sad', miM: 'sad' },
   sit:     { kai: 540, kaiFrom: 330, mi: 690, anM: 'sad', down: 0, kaiM: 'smile', miM: 'smile' },
   warm:    { kai: 540, mi: 690, anM: 'calm', down: 0, kaiM: 'smile', miM: 'smile' },
   thanks:  { kai: 540, mi: 690, anM: 'smile', down: 0, kaiM: 'happy', miM: 'happy' },
-  teacher: { kai: 540, mi: 690, anM: 'happy', down: 0, kaiM: 'happy', miM: 'happy', clap: '過關！', confetti: 1 },
+  teacher: { kai: 540, mi: 690, anM: 'happy', down: 0, kaiM: 'happy', miM: 'happy', clap: '過{ㄍㄨㄛˋ}關{ㄍㄨㄢ}！', confetti: 1 },
 };
 
 function rr(c, x, y, w, h, r) { c.beginPath(); c.roundRect(x, y, w, h, r); }
@@ -335,15 +391,26 @@ function person(c, x, opt) {
 function subtitle(c, line) {
   if (!line) return;
   const r = ROLE[line.role];
-  c.font = `900 40px ${FONT}`;
-  const tw = c.measureText(line.text).width;
-  const chipW = 118, total = Math.min(1220, tw + chipW + 40), x = (1280 - total) / 2, y = 636;
-  c.fillStyle = 'rgba(16,24,22,.86)'; rr(c, x, y, total, 68, 18); c.fill();
-  c.fillStyle = r.color === '#1E2A2A' ? '#E8B04B' : r.color; rr(c, x + 8, y + 8, chipW - 14, 52, 12); c.fill();
+  const S = 40, chipW = 118, avail = 1240 - chipW - 36;
+  const toks = zparse(line.zy);
+  // 太長就在標點處分成兩行
+  let rows = [toks];
+  const total = zwidth(c, toks, S);
+  if (total > avail) {
+    let best = -1, bestDiff = 1e9, acc = 0;
+    toks.forEach((t, k) => { acc += zadv(c, t, S); if ('，。！？、'.includes(t.ch) && k < toks.length - 1) { const d = Math.abs(acc - total / 2); if (d < bestDiff) { bestDiff = d; best = k; } } });
+    if (best >= 0) rows = [toks.slice(0, best + 1), toks.slice(best + 1)];
+  }
+  const widest = Math.max(...rows.map(rw => zwidth(c, rw, S)));
+  const sz = widest > avail ? S * avail / widest : S;
+  const lh = sz * 1.4, w = Math.max(...rows.map(rw => zwidth(c, rw, sz)));
+  const boxW = Math.min(1240, w + chipW + 36), boxH = rows.length * lh + 22, x = (1280 - boxW) / 2, y = 706 - boxH;
+  c.fillStyle = 'rgba(16,24,22,.86)'; rr(c, x, y, boxW, boxH, 18); c.fill();
+  const chipH = 52, chipY = y + (boxH - chipH) / 2;
+  c.fillStyle = r.color === '#1E2A2A' ? '#E8B04B' : r.color; rr(c, x + 8, chipY, chipW - 14, chipH, 12); c.fill();
   c.fillStyle = r.color === '#1E2A2A' ? '#1E2A2A' : '#fff'; c.font = `900 30px ${FONT}`; c.textAlign = 'center'; c.textBaseline = 'middle';
-  c.fillText(line.role, x + 8 + (chipW - 14) / 2, y + 35);
-  c.fillStyle = '#fff'; c.font = `900 40px ${FONT}`; c.textAlign = 'left';
-  c.fillText(line.text, x + chipW + 8, y + 36, total - chipW - 24);
+  c.fillText(line.role, x + 8 + (chipW - 14) / 2, chipY + chipH / 2 + 1);
+  rows.forEach((rw, k) => drawZ(c, rw, x + chipW + 8, y + 11 + lh * (k + .5), sz, '#fff', 'left'));
 }
 
 function clapper(c, label, p) {
@@ -354,8 +421,7 @@ function clapper(c, label, p) {
   c.fillStyle = '#fff'; c.fillRect(0, -44, 440, 44);
   c.fillStyle = '#1E2A2A'; for (let i = 0; i < 6; i++) { c.beginPath(); c.moveTo(i * 80 + 8, -44); c.lineTo(i * 80 + 50, -44); c.lineTo(i * 80 + 22, 0); c.lineTo(i * 80 - 20, 0); c.fill(); }
   c.restore();
-  c.fillStyle = '#FFD45E'; c.font = `900 96px ${FONT}`; c.textAlign = 'center'; c.textBaseline = 'middle';
-  c.fillText(label, 0, 26);
+  drawZ(c, zparse(label), 0, 26, 72, '#FFD45E', 'center');
   c.restore();
 }
 
@@ -391,9 +457,9 @@ function drawScene(c, beatName, p, t, speaker, level, line) {
 function drawTitle(c, p) {
   c.fillStyle = '#1F4D3A'; c.fillRect(0, 0, 1280, 720);
   c.textAlign = 'center'; c.textBaseline = 'middle';
-  c.fillStyle = '#E8B04B'; c.font = `700 40px ${FONT}`; c.fillText(STORY.credit, 640, 250);
+  drawZ(c, zparse(STORY.credit), 640, 250, 40, '#E8B04B', 'center');
   c.save(); c.translate(640, 360); const s = Math.min(1, p * 4); c.scale(.8 + .2 * s, .8 + .2 * s);
-  c.fillStyle = '#FBF7EF'; c.font = `900 104px ${FONT}`; c.fillText(STORY.title, 0, 0); c.restore();
+  drawZ(c, zparse(STORY.title), 0, 0, 104, '#FBF7EF', 'center'); c.restore();
 }
 
 function drawRewind(c, p, t) {
@@ -406,17 +472,16 @@ function drawRewind(c, p, t) {
   c.filter = 'none';
   c.fillStyle = 'rgba(255,255,255,.28)';
   for (let i = 0; i < 4; i++) c.fillRect(0, ((t * 900 + i * 190) % 760) - 20, 1280, 8);
-  c.fillStyle = '#fff'; c.font = `900 110px ${FONT}`; c.textAlign = 'center'; c.textBaseline = 'middle';
-  c.fillText('◀◀ 倒帶中', 640, 280);
+  drawZ(c, zparse('◀◀ 倒{ㄉㄠˇ}帶{ㄉㄞˋ}中{ㄓㄨㄥ}'), 640, 280, 92, '#fff', 'center');
   c.restore();
 }
 
 function drawEnd(c, p) {
   c.fillStyle = '#E8B04B'; c.fillRect(0, 0, 1280, 720);
   c.textAlign = 'center'; c.textBaseline = 'middle';
-  c.fillStyle = '#1E2A2A'; c.font = `900 84px ${FONT}`; c.fillText(STORY.endLine, 640, 250);
-  c.font = `700 46px ${FONT}`; c.fillText(STORY.endSub, 640, 370);
-  if (p > .35) { c.fillStyle = '#1F4D3A'; c.font = `900 40px ${FONT}`; c.fillText(STORY.endCredit, 640, 500); }
+  drawZ(c, zparse(STORY.endLine), 640, 250, 84, '#1E2A2A', 'center');
+  drawZ(c, zparse(STORY.endSub), 640, 370, 46, '#1E2A2A', 'center');
+  if (p > .35) drawZ(c, zparse(STORY.endCredit), 640, 500, 40, '#1F4D3A', 'center');
 }
 
 /* ===== 聲音 ===== */
@@ -483,12 +548,13 @@ const sc = $('studioCanvas').getContext('2d');
 let cur = 1, mic = null, micAn = null, recorder = null, busy = false, previewSrc = null, previewAn = null, studioTimer = null, autoStop = null, recStart = 0;
 
 function renderList() {
-  $('list').innerHTML = LINES.map(l => `<button class="li ${l.id === cur ? 'on' : ''}" data-id="${l.id}"><span>${l.id}</span><span style="font-weight:900;color:${l.id === cur ? ROLE[l.role].color : 'inherit'}">${ROLE[l.role].icon} ${l.role}</span><span class="tx">${l.text}</span><span class="ok">${takes.has(l.id) ? '✓' : ''}</span></button>`).join('');
+  $('list').innerHTML = LINES.map(l => `<button class="li ${l.id === cur ? 'on' : ''}" data-id="${l.id}"><span>${l.id}</span><span style="font-weight:900;color:${l.id === cur ? ROLE[l.role].color : 'inherit'}">${ROLE[l.role].icon} ${zhtml(ROLE[l.role].zy)}</span><span class="tx">${l.text}</span><span class="ok">${takes.has(l.id) ? '✓' : ''}</span></button>`).join('');
   $('doneCount').textContent = `${takes.size} / ${LINES.length}`;
   $('listenBtn').disabled = !takes.has(cur) || busy;
+  if (!recorder) $('recBtn').innerHTML = zhtml(takes.has(cur) ? '● 重{ㄔㄨㄥˊ}錄{ㄌㄨˋ}這{ㄓㄜˋ}一{ㄧˊ}句{ㄐㄩˋ}' : '● 開{ㄎㄞ}始{ㄕˇ}錄{ㄌㄨˋ}音{ㄧㄣ}');
 }
-function pick(id) { stopPreview(); cur = id; renderList(); setStatus(`第 ${id} 句，請 ${byId(id).role} 準備。`); }
-const setStatus = s => { $('status').textContent = s; };
+function pick(id) { stopPreview(); cur = id; renderList(); setStatus(`第{ㄉㄧˋ} ${id} 句{ㄐㄩˋ}，請{ㄑㄧㄥˇ}${ROLE[byId(id).role].zy}準{ㄓㄨㄣˇ}備{ㄅㄟˋ}。`); }
+const setStatus = s => { $('status').innerHTML = zhtml(s); };
 $('list').addEventListener('click', e => { const b = e.target.closest('.li'); if (b && !busy) pick(+b.dataset.id); });
 $('nextLine').onclick = () => { if (!busy) pick(cur === LINES.length ? 1 : cur + 1); };
 
@@ -549,8 +615,8 @@ async function startRec() {
   rec.onstop = () => finishRec(new Blob(chunks, { type: rec.mimeType }));
   rec.start();
   recorder = rec; recStart = performance.now();
-  $('recBtn').disabled = false; $('recBtn').textContent = '■ 錄好了';
-  setStatus(`🔴 錄音中：${byId(cur).role}，開始說！`);
+  $('recBtn').disabled = false; $('recBtn').innerHTML = zhtml('■ 錄{ㄌㄨˋ}好{ㄏㄠˇ}了{ㄌㄜ˙}');
+  setStatus(`🔴 錄{ㄌㄨˋ}音{ㄧㄣ}中{ㄓㄨㄥ}：${ROLE[byId(cur).role].zy}，開{ㄎㄞ}始{ㄕˇ}說{ㄕㄨㄛ}！`);
   autoStop = setTimeout(stopRec, 15000);
 }
 function stopRec() {
@@ -560,18 +626,18 @@ function stopRec() {
 async function finishRec(blob) {
   recorder = null;
   busy = false; setNavLock(false);
-  $('recBtn').textContent = '● 重錄這一句';
-  setStatus('存檔中……');
+  $('recBtn').innerHTML = zhtml('● 重{ㄔㄨㄥˊ}錄{ㄌㄨˋ}這{ㄓㄜˋ}一{ㄧˊ}句{ㄐㄩˋ}');
+  setStatus('存{ㄘㄨㄣˊ}檔{ㄉㄤˋ}中{ㄓㄨㄥ}……');
   const id = cur;
   takes.set(id, blob); decoded.delete(id);
   try { await dbDo('readwrite', s => s.put(blob, id)); } catch (e) { console.warn('存檔失敗', e); }
   renderList();
   try {
     const p = await processed(id);
-    if (p.silent) { setStatus('好像沒有錄到聲音，看一下音量條有沒有動，再重錄一次。'); return; }
-    setStatus('錄好了！聽聽看，滿意就按「下一句」。');
+    if (p.silent) { setStatus('好{ㄏㄠˇ}像{ㄒㄧㄤˋ}沒{ㄇㄟˊ}有{ㄧㄡˇ}錄{ㄌㄨˋ}到{ㄉㄠˋ}聲{ㄕㄥ}音{ㄧㄣ}，看{ㄎㄢˋ}一{ㄧˊ}下{ㄒㄧㄚˋ}音{ㄧㄣ}量{ㄌㄧㄤˋ}條{ㄊㄧㄠˊ}有{ㄧㄡˇ}沒{ㄇㄟˊ}有{ㄧㄡˇ}動{ㄉㄨㄥˋ}，再{ㄗㄞˋ}重{ㄔㄨㄥˊ}錄{ㄌㄨˋ}一{ㄧˊ}次{ㄘˋ}。'); return; }
+    setStatus('錄{ㄌㄨˋ}好{ㄏㄠˇ}了{ㄌㄜ˙}！聽{ㄊㄧㄥ}聽{ㄊㄧㄥ˙}看{ㄎㄢˋ}，滿{ㄇㄢˇ}意{ㄧˋ}就{ㄐㄧㄡˋ}按{ㄢˋ}「下{ㄒㄧㄚˋ}一{ㄧˊ}句{ㄐㄩˋ}」。');
     playPreview(id);
-  } catch (e) { console.warn(e); setStatus('這段錄音讀不出來，請重錄一次。'); takes.delete(id); renderList(); }
+  } catch (e) { console.warn(e); setStatus('這{ㄓㄜˋ}段{ㄉㄨㄢˋ}錄{ㄌㄨˋ}音{ㄧㄣ}讀{ㄉㄨˊ}不{ㄅㄨˋ}出{ㄔㄨ}來{ㄌㄞˊ}，請{ㄑㄧㄥˇ}重{ㄔㄨㄥˊ}錄{ㄌㄨˋ}一{ㄧˊ}次{ㄘˋ}。'); takes.delete(id); renderList(); }
 }
 $('recBtn').onclick = e => { e.currentTarget.blur(); if (recorder) stopRec(); else if (!busy) startRec(); };
 
@@ -662,14 +728,14 @@ async function playFilm() {
     const reset = () => {
       filmRun = null;
       $('filmPanel').classList.remove('off'); $('bar').classList.remove('hide'); setNavLock(false);
-      $('playFilm').textContent = '▶ 再看一次';
+      $('playFilm').innerHTML = zhtml('▶ 再{ㄗㄞˋ}看{ㄎㄢˋ}一{ㄧˊ}次{ㄘˋ}');
     };
     if (vr && vr.state !== 'inactive') {
       vr.onstop = () => {
         if (!aborted && chunks.length) {
           filmBlob = new Blob(chunks, { type: vr.mimeType }); filmType = vr.mimeType;
           $('dlFilm').disabled = false;
-          $('filmMsg').textContent = `影片完成了（${Math.round(total)} 秒），可以下載保存。`;
+          $('filmMsg').innerHTML = zhtml(`影{ㄧㄥˇ}片{ㄆㄧㄢˋ}完{ㄨㄢˊ}成{ㄔㄥˊ}了{ㄌㄜ˙}（${Math.round(total)} 秒{ㄇㄧㄠˇ}），可{ㄎㄜˇ}以{ㄧˇ}下{ㄒㄧㄚˋ}載{ㄗㄞˋ}保{ㄅㄠˇ}存{ㄘㄨㄣˊ}。`);
         } else if (aborted) { $('filmMsg').textContent = '已中止，可以重新開始。'; }
         reset();
       };
@@ -724,7 +790,7 @@ $('clearAll').onclick = async e => {
   takes.clear(); decoded.clear(); filmBlob = null; $('dlFilm').disabled = true;
   try { await dbDo('readwrite', s => s.clear()); } catch (err) { console.warn(err); }
   b.textContent = '已清除所有錄音'; $('filmMsg').textContent = '錄音和影片都清除了。';
-  $('playFilm').textContent = '▶ 開始首映'; renderList();
+  $('playFilm').innerHTML = zhtml('▶ 開{ㄎㄞ}始{ㄕˇ}首{ㄕㄡˇ}映{ㄧㄥˋ}'); renderList();
 };
 
 /* ===== 投影片操作 ===== */
@@ -748,7 +814,7 @@ function show(n) {
   if (here.id === 'film') {
     drawTitle(fc, 1);
     const miss = LINES.filter(l => !takes.has(l.id)).map(l => l.id);
-    if (!filmRun && !filmBlob) $('filmMsg').textContent = miss.length ? `還有第 ${miss.join('、')} 句沒錄，播放時只會顯示字幕。` : `${LINES.length} 句都錄好了，一起看！`;
+    if (!filmRun && !filmBlob) $('filmMsg').innerHTML = zhtml(miss.length ? `還{ㄏㄞˊ}有{ㄧㄡˇ}第{ㄉㄧˋ} ${miss.join('、')} 句{ㄐㄩˋ}沒{ㄇㄟˊ}錄{ㄌㄨˋ}，播{ㄅㄛ}放{ㄈㄤˋ}時{ㄕˊ}只{ㄓˇ}會{ㄏㄨㄟˋ}顯{ㄒㄧㄢˇ}示{ㄕˋ}字{ㄗˋ}幕{ㄇㄨˋ}。` : `${LINES.length} 句{ㄐㄩˋ}都{ㄉㄡ}錄{ㄌㄨˋ}好{ㄏㄠˇ}了{ㄌㄜ˙}，一{ㄧˋ}起{ㄑㄧˇ}看{ㄎㄢˋ}！`);
   }
 }
 const go = d => show(i + d);
@@ -767,6 +833,7 @@ addEventListener('keydown', e => {
   else if (e.key === 'End') show(slides.length - 1);
   else if (e.key === 'n' || e.key === 'N') toggleNotes();
   else if (e.key === 'f' || e.key === 'F') toggleFs();
+  else if (e.key === 'z' || e.key === 'Z') { ZY = !ZY; applyZy(); }
   else if (/^[0-9]$/.test(e.key)) typed += e.key;
   else if (e.key === 'Enter' && typed) { show(parseInt(typed, 10) - 1); typed = ''; }
 });
@@ -785,6 +852,15 @@ addEventListener('touchend', e => {
 });
 addEventListener('resize', fit);
 addEventListener('beforeunload', closeMic);
+function applyZy() {
+  document.body.classList.toggle('nozy', !ZY);
+  $('zyBtn').style.opacity = ZY ? 1 : .45;
+  try { localStorage.setItem('dubZy', ZY ? '1' : '0'); } catch (e) {}
+  if (slides[i] && slides[i].id === 'film' && !filmRun) drawTitle(fc, 1);
+}
+$('zyBtn').onclick = e => { e.stopPropagation(); e.currentTarget.blur(); ZY = !ZY; applyZy(); };
+zwalk(document.body);
+applyZy();
 fit();
 loadTakes().finally(() => {
   show((parseInt(location.hash.slice(1), 10) || 1) - 1);
